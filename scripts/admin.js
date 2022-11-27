@@ -662,9 +662,9 @@ navItems.forEach(function(navItem, index) {
             case 3:
                 document.querySelector('.section__customer').style.display = "block";
                 break;
-            case 4:
-                window.location.pathname = 'index.html';
-                break;
+            // case 4:
+            //     window.location.pathname = 'index.html';
+            //     break;
         }
     }
 })

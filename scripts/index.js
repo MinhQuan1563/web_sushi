@@ -693,9 +693,9 @@ function sidebarControl() {
                 case 3:
                     document.querySelector('.section__contact.section__contact').style.display = "flex";
                     break;
-                case 4:
-                    window.location.pathname = 'admin.html';
-                    break;
+                // case 4:
+                //     window.location.pathname = 'admin.html';
+                //     break;
             }
         }
     })
@@ -1352,9 +1352,9 @@ function btnSignin() {
             overlayLogin.classList.remove('open');
         }, 2000)
 
-        setTimeout(function() {
-            window.location.pathname = 'index.html';
-        }, 2300)
+        // setTimeout(function() {
+        //     window.location.href = 'index.html';
+        // }, 2300)
 
     }
     else if(checkSignin()) {
@@ -2279,7 +2279,7 @@ function showSidebar() {
         else
             item.style.display = 'block';
     })
-    window.location.pathname = 'index.html';
+    // window.location.pathname = 'index.html';
 }
 
 var tongTienTatCaDonHang = 0; // lưu tổng tiền từ tất cả các đơn hàng đã mua

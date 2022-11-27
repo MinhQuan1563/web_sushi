@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOODY</title>
+    <link rel="icon" href="./images/favicon.png">
+
+    <!-- Reset CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    
+    <!-- Link Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./fonts/fontawesome-free-6.1.2-web/css/all.min.css">
+    <link rel="stylesheet" href="./fonts/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous">
+
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/base.css">
+    <!-- <link rel="stylesheet" href="../css/responsive.css"> -->
+
+    
+</head>
+<body>
+    <div id="main" style="position: relative;">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar__logo">
+                <img src="./images/logo.svg" alt="">
+            </div>
+
+            <ul class="sidebar__menu">
+                <li class="sidebar__menu-item active" title="Trang chủ">
+                    <i class="fa-solid fa-house"></i>
+                </li>
+                <li class="sidebar__menu-item">
+                    <i class="fa-solid fa-utensils"></i>
+                </li>
+                <li class="sidebar__menu-item">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </li>
+                <li class="sidebar__menu-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                </li>
+                <li class="sidebar__menu-item hide">
+                    <i class="ti-settings"></i>
+                </li>
+            </ul>
+
+            <div class="sidebar__log-out hide">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section__header">
+                <div class="section__header-title">
+                    <img style="z-index: 1000;" src="./images/logo.png" alt="">
+                    <div class="section__header-title-searchbar">
+                        <div class="section__header-searchbar-child">
+                            <div class="section__delete">
+                                <p class="fa-solid fa-xmark"></p>
+                            </div>
+                            <input type="text" id="section__search" placeholder="Search for sushi, sashimi, bento..." />
+                            <i class="fa-solid fa-magnifying-glass" id="search" onclick="searchProduct()"></i>
+                        </div>
+                    </div>
+                    <div class="section__header-title-notified section__header-title-icon">
+                        <span>
+                            <i class="ti-bell"></i>
+                            <div class="section__header-title-text">Thông báo</div>
+
+                            <div class="header__pseudo"></div>
+
+                            <div class="section__notify-cart">
+                                <ul class="section__notify-cart-list">
+                                    
+                                </ul>
+    
+                                <div class="section__notify-footer">
+                                    <div class="section__notify-footer-total">
+                                        <div class="section__notify-footer-text">Tổng tiền (0) sản phẩm: </div>
+                                        <div class="section__notify-footer-money">0 đ</div>
+                                    </div>
+                                    <div class="section__notify-footer-tocart">Xem giỏ hàng</div>
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="section__header-title-icon" id="section__header-login" onclick="openFormLogin()">
+                        <span>
+                            <i class="fa-regular fa-user"></i>
+                            <div class="section__header-title-text login">Đăng nhập</div>
+
+                            <div class="header__pseudo"></div>
+
+                            <div class="section__login">
+                                <ul class="section__login-list">
+                                    <li class="section__login-order">Đơn hàng đã đặt</li>
+                                    <li class="section__login-back">Về trang chủ</li>
+                                </ul>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="section__header-search">
+                    
+                </div>
+            </div>
+
+            <div class="section__content home">
+                <div class="slider">
+                    <div class="slide__box">
+                        <img src="./images/slider2.png" alt="" class="slide__img">
+                    </div>
+                    <div class="slide__box">
+                        <img src="./images/slider3.png" alt="" class="slide__img">
+                    </div>
+                    <div class="slide__box">
+                        <img src="./images/slider4.png" alt="" class="slide__img">
+                    </div>
+                    <div class="slide__box">
+                        <img src="./images/slider5.png" alt="" class="slide__img">
+                    </div>
+                </div>
+                <div class="section__card special">
+                    <img src="./images/home-1.png" alt="">
+                    <div class="section__card-page">
+                        <h2>Omakase</h2>
+                        <p>Omakase đối với chúng tôi là một loại nghệ thuật có thể cùng lúc thỏa mãn cái tôi của người nghệ sĩ và mang đến cho người thưởng thức một trải nghiệm chưa từng có. Mỗi người dám thử sẽ có những trải nghiệm rất khác nhau, khi, bản thân giao việc lựa chọn “cái mình sẽ thích” cho một người khác. Và với vị trí là người được giao phó, chúng tôi luôn cố gắng đem sự tỉ mỉ và hoàn hảo vào từng món ăn để phục vụ thực khách một cách chỉnh chu nhất, nhằm mang đến một trải nghiệm ẩm thực Omakase trọn vẹn và đáng nhớ.</p>
+                    </div>
+                </div>
+                <div class="section__card">
+                    <div class="section__card-page">
+                        <h2>Về chúng tôi</h2>
+                        <p>Nếu bạn đang tìm kiếm một hương vị ẩm thực độc đáo, một sự kết hợp hoàn hảo giữa ẩm thực Nhật Bản và những biến tấu đầy nghệ thuật thì thực đơn tại Kasen sẽ là một trải nghiệm đáng giá. Tại Kasen, chúng tôi kế thừa và tiếp tục phát triển phong cách ẩm thực của bậc thầy sushi hàng đầu Shinji Murata. Những món ăn Nhật Bản truyền thống giờ đây được thêm thắt những giá trị ẩm thực mới, mang đến sự bùng nổ về hương vị kèm theo sự mới lạ khi thưởng thức.</p>
+                    </div>
+                    <img src="./images/home-2.png" alt="">
+                </div>
+                <div class="section__products special">
+                    <div class="section__items">
+                        <img src="./images/home-3.png" alt="">
+                        <div class="section__span">Cơm được phục vụ ấm nóng kết hợp đơn giản cùng cá tươi tạo ra vị ngọt dịu cuốn hút như được phủ sốt khi thưởng thức.</div>
+                    </div>
+                    <div class="section__items">
+                        <img src="./images/home-4.png" alt="">
+                        <div class="section__span">Sushi và Sashimi đạt độ mềm tự nhiên, tạo cảm giác tan trong miệng, nhờ vào nghệ thuật cắt cá điêu luyện và kinh nghiệm chế biến từ người đầu bếp.</div>
+                    </div>
+                    <div class="section__items">
+                        <img src="./images/home-5.png" alt="">
+                        <div class="section__span">Các món sashimi đều được thêm sốt nhà làm, với mùi vị đặc trưng làm tăng lên hương vị của món ăn, chinh phục cả những thực khách trước giờ không quen ăn đồ sống.</div>
+                    </div>
+                    <div class="section__items">
+                        <img src="./images/home-6.png" alt="">
+                        <div class="section__span">Set Omakase được người đầu bếp thực hiện chỉnh chu trong từng khâu chuẩn bị, mỗi set vừa vặn cho 1 người ăn, tạo cảm giác ngon miệng và sự thú vị khi thưởng thức.</div>
+                    </div>
+                </div>
+                <h1 class="special">Bậc thầy Shinji Murata</h1>
+                <div class="section__card special">
+                    <div class="section__card-img">
+                        <img src="./images/home-7.png" alt="">
+                    </div>
+                    <div class="section__card-page">
+                        <p>Dành ra hơn 50 năm để trải nghiệm tại nhiều nhà hàng khác nhau và gần 20 năm điều hành chuỗi nhà hàng Hiko Sushi nổi tiếng tại Mỹ, bậc thầy Shinji Murata đã đúc kết ra rất nhiều giá trị ẩm thực tuyệt vời và đưa vào từng món ăn do ông chế biến. Ông đã không ngừng học hỏi, cải tiến để làm những món ăn của mình trở nên hoàn hảo nhất. 
+                            <br> Món ăn tại Kasen mang đậm phong cách và dấu ấn ẩm thực từ vị đầu bếp tài hoa này. Chúng tôi luôn không ngừng phát triển và cải tiến để phát huy những giá trị ẩm thực từ bậc thầy Shinji Murata.</p>
+                    </div>
+                </div>
+                <h1>Tiêu chuẩn từ Kasen</h1>
+                <div class="section__products">
+                    <div class="section__items">
+                        <img src="./images/home-8.png" alt="">
+                        <div class="section__span">Các loại hải sản tại Kasen đều được nhập khẩu trực tiếp và được bảo quản theo tiêu chuẩn tốt nhất để đảm bảo giá trị và chất lượng của món ăn.</div>
+                    </div>
+                    <div class="section__items">
+                        <img src="./images/home-9.png" alt="">
+                        <div class="section__span">Từng miếng rong biển cũng được nhập trực tiếp từ nhà sản xuất tại Nhật Bản, luôn là loại với chất lượng tốt nhất. Thực khách sẽ luôn cảm nhận được vị tươi và mùi rong biển đặc trưng khi dùng món tại Kasen.</div>
+                    </div>
+                    <div class="section__items">
+                        <img src="./images/home-10.png" alt="">
+                        <div class="section__span">Gạo cũng được kiểm tra độ ẩm phù hợp trước khi trở thành nguyên liệu cho món ăn. Kể cả nước nấu cơm cũng được canh chỉnh đến từng milimet để đảm bảo độ mềm của hạt gạo.</div>
+                    </div>
+                    <div class="section__items">
+                        <img src="./images/home-11.png" alt="">
+                        <div class="section__span">Thức ăn giao tận nơi luôn được chế biến ngon miệng và đẹp mắt. Các món được giao đi ngay sau khi chuẩn bị xong, đảm bảo hương vị tuyệt hảo như khi thưởng thức tại nhà hàng.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section__content food">
+                <ul class="section__header-menu">
+                    <li class="active">Bento</li>
+                    <li>Sushi</li>
+                    <li>Sashimi</li>
+                    <li>Combo Sashimi</li>
+                    <li>Món ăn kèm</li>
+                    <li>Nước uống và tráng miệng</li>
+                </ul>
+
+                <div class="section__content-title">
+                    <h2>Thực đơn</h2>
+                    <div class="section__content-filter" id="filter-btn">
+                        <i class="fa-solid fa-filter"></i>
+                        <p>Bộ lọc</p>
+                    </div>
+                </div>
+
+                <div class="filter">
+                    <div class="filter__header">
+                        <ul class="filter__header-selectors">
+                            <li>Bento</li>
+                            <li>Sushi</li>
+                            <li>Sashimi</li>
+                            <li>Combo</li>
+                            <li>Món kèm</li>
+                            <li>Tráng miệng</li>
+                        </ul>
+                        <div class="filter__content">
+                            <div class="filter__content-item-note">
+                                <label for="">Tên sản phẩm</label>
+                                <div class="filter__item">
+                                    <input type="text" id="nameproduct" placeholder="Tên ..." />
+                                </div>
+                            </div>
+                            <div class="filter__content-item-note">
+                                <label for="">Khoảng giá</label>
+                                <div class="filter__item">
+                                    <div>
+                                        <input type="text" id="moneymin" placeholder="0" />
+                                        <span>.000 ₫</span>
+                                    </div>
+                                    <p class="fa-solid fa-arrow-right"></p>
+                                    <div>
+                                        <input type="text" id="moneymax" placeholder="2.249" />
+                                        <span>.000 ₫</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="Submit__Search" onclick="filterHandle()">Xác Nhận</button>
+                    </div>
+        
+                </div>
+
+                <ul class="section__content-list">
+                    
+                </ul>
+
+                <div id="pagination">
+                    <i class="ti-arrow-circle-left btn-prev"></i>
+                    <ul class="pagi-number-page"></ul>
+                    <i class="ti-arrow-circle-right btn-next active"></i>
+                </div>
+
+            </div>
+
+            <div class="section__content checkout">
+                <div class="checkout__container">
+                    <h1>
+                        Danh Sách Món Đã Chọn
+                        <div class="product-remove-all">
+                            <span class="checkout__remove-name">Xóa hết</span>
+                        </div>
+                    </h1>
+                    <div class="checkout__cart">
+                        <div class="checkout__cart-products">
+                            
+                        </div>
+                        <div class="checkout__cart-total">
+                            <img src="./images/logo.png" alt="">
+                            <div>
+                                <h3>Số lượng</h3>
+                                <p id="checkout__cart-total-amount">0</p>
+                            </div>
+                            <div>
+                                <h3>Tổng tiền</h3>
+                                <p id="checkout__cart-total-money">0 ₫</p>
+                            </div>
+                            <span id="pay">Thanh toán</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section__content section__contact">
+                <div class="section__contact-left">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1904.0456885702786!2d106.68236887772456!3d10.759361877281822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1c81c64183%3A0xd3109d7a7a8f753c!2zMjczIEFuIEQuIFbGsMahbmcsIFBoxrDhu51uZyAzLCBRdeG6rW4gNSwgVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1666201119865!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="section__contact-right">
+                    <div class="section__contact-header">
+                        <h1>Liên Hệ</h1>
+                        <hr>
+                    </div>
+                    <ul class="section__contact-list">
+                        <li>
+                            <p>
+                                <i class="fa-solid fa-map-location-dot"></i>
+                                Địa chỉ chúng tôi
+                            </p>
+                            <p><strong>273, An Dương Vương, Phường 03, Quận 5, Thành phố Hồ Chí Minh</strong></p>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="fa-solid fa-envelope"></i>
+                                Email chúng tôi
+                            </p>
+                            <a href="mailto: webThaySang_nhom11@gmail.com"><strong>webThaySang_nhom11@gmail.com</strong></a>
+                        </li>
+                        <li>
+                            <p>
+                                <i class="fa-solid fa-phone"></i>
+                                Điện thoại
+                            </p>
+                            <a href="tel: +18008131"><strong>+18008131</strong></a>
+                        </li>
+                        <li>
+                            <p>Thời gian làm việc</p>
+                            <p><strong>Thứ 2 đến Chủ Nhật từ 8h đến 21h</strong></p>
+                        </li>
+                    </ul>
+                    <div class="section__contact-send">
+                        <h2>Gửi thắc mắc cho chúng tôi</h2>
+                        <hr>
+                        <br>
+                        <form action="">
+                            <input id="contact-fullname" type="text" name="fullname" placeholder="Tên của bạn">
+                            <div class="sitebox-email-phone">
+                                <input id="contact-email" type="text" name="email" placeholder="Email của bạn">
+                                <input id="contact-phone" type="text" name="phone" placeholder="Số điện thoại của bạn">
+                            </div>
+                            <textarea id="message" name="message" rows="10" placeholder="Nội dung"></textarea>
+                            <div class="section__contact-recaptcha">
+                                This site is protected by reCAPTCHA and the Google
+                                <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> 
+                                and <a href="https://policies.google.com/terms" target="_blank" rel="noreferrer">Terms of Service</a> apply.
+                            </div>
+                        </form>
+                        <button class="section__contact-btn" type="submit">Gửi cho chúng tôi</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="donHangDaDat">
+                <div class="nenTrang">
+                    <div class="infoUser">
+            
+                    </div>
+        
+                    <div class="listOrder">
+        
+                    </div>
+                </div>
+            </div>
+
+            <footer class="section__footer">
+                <div class="footer__counters">
+                    <ul class="footer__counters-inner">
+                        <li class="footer__counters-item">
+                            <img src="./images/footer-1.png" alt="">
+                            <div class="footer__counters-text">
+                                <h1>Đa dạng</h1>
+                                <h3>Hải Sản Tươi Ngon Từ 10 Quốc Gia</h3>
+                            </div>
+                        </li>
+                        <li class="footer__counters-item">
+                            <img src="./images/footer-2.png" alt="">
+                            <div class="footer__counters-text">
+                                <h1>Giao Nhanh 2H</h1>
+                                <h3>Giao Hàng Nhanh Đóng Gói Chuẩn</h3>
+                            </div>
+                        </li>
+                        <li class="footer__counters-item">
+                            <img src="./images/footer-3.png" alt="">
+                            <div class="footer__counters-text">
+                                <h1>+ 10</h1>
+                                <h3>Năm kinh nghiệm</h3>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <span>Jager Restro - tươi ngon từ hải sản đang bơi - Là chuỗi hệ thống nhà hàng Fresh To Go mang đến cho khách hàng những món Sashimi và Sushi ngon nhất, chất lượng nhất từ những loại hải sản đang bơi</span>
+                    </div>
+                    <div class="col">
+                        <h3>
+                            Chính Sách
+                        </h3>
+                        <ul>
+                            <li><a href="#">Chính Sách Đổi Hàng</a></li>
+                            <li><a href="">Chính Sách Giao Hàng</a></li>
+                            <li><a href="">Chính Sách Thành Viên</a></li>
+                            <li><a href="">Chính Sách Khiếu Nại</a></li>
+                        </ul>
+                        <p class="email-id">Email Cửa Hàng: SHUSHISAIGON@gmail.com</p>
+                        <h4>Tel: +84 0964184548</h4>
+                    </div>
+                    <div class="col">
+                        <h3>
+                            Thực Đơn
+                        </h3>
+                        <ul>
+                            <li><a href="#">Trang Chủ</a></li>
+                            <li><a href="#">Sản Phẩm</a></li>
+                            <li><a href="#">Khuyến Mãi</a></li>
+                            <li><a href="#">Phục Vụ</a></li>
+                            <li><a href="#">Liên Hệ</a></li>
+        
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h3>
+                            Đăng ký nhận tin
+                        </h3>
+                        <form >
+                            <i class="fa-regular fa-envelope"></i>
+                            <input type="email-foot" placeholder="Nhập email của bạn" required>
+                            <button type="submit">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </form>
+                        <div class="social-icons">
+                            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#"><i class="fa-brands fa-facebook-messenger"></i></a> 
+                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="container text-center">	
+                    <b>CÔNG TY TNHH 4 Thành Viên</b>
+                    <br>
+                    <b>Địa chỉ trụ sở chính:</b> 
+                    273, An Dương Vương, Phường 03, Quận 5, Thành phố Hồ Chí Minh
+                    <br>
+                    <b>Hotline:</b> 
+                    <a href="tel: +0378068647">0378068647</a> - <a href="tel: +18008131">18008131</a>
+                    <br>
+                    <a href="mailto: nhom_11_web@gmail.com">
+                        <b>Email Chủ Cửa Hàng:</b> 
+                        webThaySang_nhom11@gmail.com
+                        <br>
+                    </a>
+            </div>
+            </footer>
+        </div>
+
+        <div class="overlay detail">
+            <div class="modal">
+                <i class="fa-solid fa-xmark close-icon"></i>
+                <div class="modal__inner">
+                    <div class="modal__inner-img"></div>
+                    <div class="modal__inner-content">
+                        <div class="modal__inner-heading"></div>
+                        <div class="modal__inner-price"></div>
+                        <form action="">
+                            <div class="modal__inner-size">
+                                <label for="">Size</label>
+                                <select name="" id="">
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                </select>
+                            </div>
+                            <div class="modal__inner-amount">
+                                <label for="">Số lượng</label>
+                                <div style="display: flex;">
+                                    <input type="button" value="-">
+                                    <input type="text" value="1" id="quantity">
+                                    <input type="button" value="+">
+                                </div>
+                            </div>
+                            <input class="modal__inner-add-cart" type="button" value="Thêm vào giỏ">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="cart-notify">
+                
+            </div>
+        </div>
+
+        <div class="overlay login">
+            <div class="modal login">
+                <div class="wrapper sign-in">
+                    <i class="fa-solid fa-xmark close-icon login"></i>
+                    <h1 class="wrapper__title">
+                        Đăng Nhập
+                    </h1>
+                    <form action="">
+                        <div class="wrapper__form">
+                            <input id="Username" class="wrapper__input" type="text" placeholder="Tên đăng nhập"/>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="wrapper__form">
+                            <input class="wrapper__input" type="password" id="Password" placeholder="Mật khẩu"/>
+                            <div class="error-message"></div>
+                        </div>
+                    </form>
+                    <input type="submit" class="wapper__submit" id="Login-Btn" value="Đăng Nhập">
+                    <div class="wrapper__not-account">
+                        Bạn chưa có tài khoản?
+                        <span>Đăng ký</span>
+                    </div>
+                </div>
+                <div class="wrapper sign-up">
+                    <i class="fa-solid fa-arrow-left login-back-icon"></i>
+                    <i class="fa-solid fa-xmark close-icon login"></i>
+                    <h1 class="wrapper__title">
+                        Đăng Ký
+                    </h1>
+                    <form action="" id="form-login">
+                        <div class="wrapper__form">
+                            <input id="fullname" class="wrapper__input" type="text" placeholder="Họ tên"/>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="wrapper__form">
+                            <input id="username" class="wrapper__input" type="text" placeholder="Tên đăng nhập"/>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="wrapper__form">
+                            <input id="password" class="wrapper__input" type="password" placeholder="Mật khẩu"/>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="wrapper__form">
+                            <input id="again-password" class="wrapper__input" type="password" placeholder="Nhập lại mật khẩu"/>
+                            <div class="error-message"></div>
+                        </div>
+                    </form>
+                    <div class="wrapper__aside">
+                        Bằng việc đăng ký bạn đã đồng ý với Jager Resto về 
+                        <a href="">Điều khoản dịch vụ</a> & 
+                        <a href="">Chính sách bảo mật</a>
+                    </div>
+                    <input type="submit" class="wapper__submit" id="login-btn" value="Đăng Ký">
+                </div>
+            </div>
+
+            <div class="overlay-notify">
+                
+            </div>
+        </div>
+
+        <div class="overlay cart-info">
+            <div class="modal checkout__info">
+                <div class="wrapper">
+                    <i class="fa-solid fa-xmark close-icon cart"></i>
+                    <h1 class="wrapper__title">
+                        Thông tin đơn hàng
+                    </h1>
+                    <form>
+                        <div class="wrapper__form">
+                            <input id="email" class="wrapper__input" type="email" placeholder="Email..."/>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="wrapper__form">
+                            <input id="phone" class="wrapper__input" type="tel" placeholder="Số điện thoại..."/>
+                            <div class="error-message"></div>
+                        </div>
+                        <div class="wrapper__form">
+                            <input id="address" class="wrapper__input" type="text" placeholder="Địa chỉ..."/>
+                            <div class="error-message"></div>
+                        </div>
+                        <textarea id="mytextarea" name="message" rows="10" placeholder="Thêm ghi chú"></textarea>
+                    </form>
+                    <input type="submit" class="wapper__submit" id="confirm-btn" value="Xác nhận">
+                </div>
+            </div>
+        </div>
+
+        <div class="notify">
+
+        </div>
+        
+        <!-- Trượt lên trên cùng -->
+        <button id="scroll-to-top" title="Trượt lên">
+            <i class="ti-arrow-up scroll-to-top__icon"></i>
+        </button>
+    </div>
+
+    <!-- Javascript -->
+    <script src="./scripts/index.js"></script>
+
+</body>
+</html>

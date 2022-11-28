@@ -636,10 +636,12 @@ if(Arr === accounts) {
     localStorage.setItem("account", JSON.stringify(accounts))
 }
 
+
+
+// ==> PHẦN CHUNG
 // Lựa chọn các item trên nav-item
 const navItems = document.querySelectorAll('.nav-item');
 const sectionItems = document.querySelectorAll('.section > div');
-
 navItems.forEach(function(navItem, index) {
     navItem.onclick = function() {
         document.querySelector('.nav-item.active').classList.remove('active');
@@ -672,11 +674,15 @@ navItems.forEach(function(navItem, index) {
 function splitImg(img) {
     var img2 = img.split('fakepath\\');
     if(img2.length === 1) {
-        return './images/' + img2;
+        return img2;
     }
     else {
-        return './images/' + img2[1];
+        return img2[1];
     }
+}
+
+function collageImg(img) {
+    return './images/' + img;
 }
 
 // Xử lý gía sản phẩm
@@ -734,6 +740,9 @@ function getTypeProduct(type) {
     return s;
 }
 
+
+
+// ==> PHÂN TRANG
 // Xử lý phân trang và Render sản phẩm ra Table
 const arr = localStorage.getItem('product') ? JSON.parse(localStorage.getItem('product')) : products;
 var perPage = 12;
@@ -756,7 +765,7 @@ function showProduct() {
                     <td style="width: 10%">${getTypeProduct(item.type)}</td>
                     <td style="width: 35%" class="fa__left">${item.name}</td>
                     <td style="width: 15%">${item.price}</td>
-                    <td style="width: 15%"><img src="${splitImg(item.image)}"></td>
+                    <td style="width: 15%"><img src="${collageImg(item.image)}"></td>
                     <td style="width: 10%">
                         <div class="tooltip update" onclick="editProduct(${index})">
                             <i class="fa fa-wrench"></i>
@@ -853,6 +862,9 @@ function changePage() {
     }
 }
 
+
+
+// ==> BẢNG SẢN PHẨM
 // ** Xử lý thêm sản phẩm
 const addProductBtn = document.getElementById('add-product');
 const overlayProduct = document.querySelector('.overlay.product.add');
@@ -986,12 +998,10 @@ function addProduct() {
     }
 
 }
-
 addProduct();
 
-// Xử lý xóa sản phẩm
+// ** Xử lý xóa sản phẩm
 const notifyDelete = document.querySelectorAll('.notify__delete')[0];
-
 function deleteProduct(i) {
     notifyDelete.innerHTML = `<div class="notify__delete-text">
                 Bạn có chắc sẽ xóa sản phẩm này không?
@@ -1041,7 +1051,7 @@ function updateProductImg(files, id) {
     }
 }
 
-// hàm tự tạo mã cho sản phẩm mới
+// hàm tự tạo mã cho sản phẩm mới thêm
 function autoMaSanPham(sp) {
     const arr = localStorage.getItem('product') ? JSON.parse(localStorage.getItem('product')) : products;
 
@@ -1056,6 +1066,8 @@ function autoMaSanPham(sp) {
     document.getElementById('maspThem').value = sp.substring(0, 6) + index;
 }
 
+// ** Xử lý sửa sản phẩm
+// hàm tự tạo mã cho sản phẩm mới sửa
 function autoMaSanPham2(sp) {
     const arr = localStorage.getItem('product') ? JSON.parse(localStorage.getItem('product')) : products;
 
@@ -1070,7 +1082,6 @@ function autoMaSanPham2(sp) {
     document.getElementById('maspSua').value = sp.substring(0, 6) + index;
 }
 
-// Xử lý sửa sản phẩm
 function editProduct(i) {
     const arr = localStorage.getItem('product') ? JSON.parse(localStorage.getItem('product')) : products;
     var htmls = `
@@ -1108,7 +1119,7 @@ function editProduct(i) {
             <tr>
                 <td>Hình ảnh:</td>
                 <td>
-                    <img src="${splitImg(arr[i].image)}" id="productImgEdit">
+                    <img src="${collageImg(arr[i].image)}" id="productImgEdit">
                     <input type="file" name="" id="" onchange="updateProductImg(this.files, 'productImgEdit')">
                 </td>
             </tr>
@@ -1124,6 +1135,7 @@ function editProduct(i) {
         </table>`
 
     var maspTmp = arr[i].masp;
+    var tenspTmp = arr[i].name;
     document.querySelector('.overlay.product.edit').innerHTML = htmls;
     overlayProduct2.style.transform = 'scale(1)';
 
@@ -1141,7 +1153,6 @@ function editProduct(i) {
 
         if(image2 == '') {
             image = image1.split('/images/')[1];
-            image = './images/' + image;
         }
         else {
             image = splitImg(image2);
@@ -1151,7 +1162,7 @@ function editProduct(i) {
             // Kiểm tra có trùng mã hoặc tên
             var check = true;
             for(let i=0; i < arr.length; i++) {
-                if(arr[i].name == name) {
+                if(arr[i].name == name && name != tenspTmp) {
                     setTimeout(function() {
                         notify.style.transform = 'translateX(0)';
                         notify.style.opacity = '1';
@@ -1215,7 +1226,7 @@ function editProduct(i) {
                 }, 1200)
                 
                 setTimeout(function() {
-                    overlayProduct.style.transform = 'scale(0)';
+                    overlayProduct2.style.transform = 'scale(0)';
                 }, 1300)
                 
                 changePage();
@@ -1250,13 +1261,15 @@ function editProduct(i) {
 
 }
 
-// ** Xử lý Bảng Khách Hàng
+
+
+// ==> BẢNG KHÁCH HÀNG
 function renderUser() {
     const arrUser = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
     var htmls = '<table>';
     for (let i = 1; i < arrUser.length; i++) {
         htmls += ` <tr>
-        <td style="width: 5%">${i - 1}</td>
+        <td style="width: 5%">${i}</td>
         <td style="width: 10%">${arrUser[i].ngaydangky}</td>
         <td style="width: 20%">${arrUser[i].Fullname}</td>
         <td style="width: 25%">${arrUser[i].email}</td>
@@ -1277,41 +1290,57 @@ function renderUser() {
 renderUser();
 
 const notifyDelete2 = document.querySelectorAll('.notify__delete')[2];
-
 function deleteUser(i) {
-    notifyDelete2.innerHTML = `<div class="notify__delete-text">
-                Bạn có chắc sẽ xóa Khách Hàng này không?
-            </div>
-            <div class="notify__delete-btn">
-                <div class="notify__delete-ok">
-                    OK
-                </div>
-                <div class="notify__delete-cancel">
-                    Hủy
-                </div>
+    if(i === 1) {
+        notifyDelete2.innerHTML = `<div class="notify__delete-text" style="color: red;">
+                Không thể xóa tài khoản ADMIN !!
             </div>`
 
-    notifyDelete2.style.transform = 'translate(-50%, 0)';
-    notifyDelete2.style.opacity = '1';
-    document.querySelector('.notify__delete-ok').onclick = function() {
-        const arr = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
-        notifyDelete2.style.transform = 'translate(-50%, -270%)';
-        notifyDelete2.style.opacity = '0';
+        notifyDelete2.style.transform = 'translate(-50%, 0)';
+        notifyDelete2.style.opacity = '1';
 
-        arr.splice(i, 1);
-
-        localStorage.setItem("account", JSON.stringify(arr));
-        renderUser();
-        renderOder();
+        setTimeout(function() {
+            notifyDelete2.style.transform = 'translate(-50%, -270%)';
+            notifyDelete2.style.opacity = '0';
+        }, 1500)
     }
-
-    document.querySelector('.notify__delete-cancel').onclick = function() {
-        notifyDelete2.style.transform = 'translate(-50%, -270%)';
-        notifyDelete2.style.opacity = '0';
+    else {
+        notifyDelete2.innerHTML = `<div class="notify__delete-text">
+                    Bạn có chắc sẽ xóa Khách Hàng này không?
+                </div>
+                <div class="notify__delete-btn">
+                    <div class="notify__delete-ok">
+                        OK
+                    </div>
+                    <div class="notify__delete-cancel">
+                        Hủy
+                    </div>
+                </div>`
+    
+        notifyDelete2.style.transform = 'translate(-50%, 0)';
+        notifyDelete2.style.opacity = '1';
+        document.querySelector('.notify__delete-ok').onclick = function() {
+            const arr = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
+            notifyDelete2.style.transform = 'translate(-50%, -270%)';
+            notifyDelete2.style.opacity = '0';
+    
+            arr.splice(i, 1);
+    
+            localStorage.setItem("account", JSON.stringify(arr));
+            renderUser();
+            renderOder();
+        }
+    
+        document.querySelector('.notify__delete-cancel').onclick = function() {
+            notifyDelete2.style.transform = 'translate(-50%, -270%)';
+            notifyDelete2.style.opacity = '0';
+        }
     }
 }
 
-// ** Xử lý Đơn Hàng
+
+
+// ==> BẢNG ĐƠN HÀNG
 function renderOder() {
     const arrUser = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
     var htmls = '<table>';
@@ -1448,17 +1477,32 @@ function showDetail(i, j) {
     localStorage.setItem('account', JSON.stringify(arrUser));
 }
 
+document.getElementById('detail__confirm').onclick = function() {
+    document.querySelector('.overlay.order').style.transform = 'scale(0)';
+}
+
 const dsMonAn = document.querySelector('.detail__monan');
 document.querySelector('.monan').onclick = function() {
     var tmp = dsMonAn.offsetHeight + 'px';
     if(tmp == '0px') {
-        dsMonAn.style.maxHeight = '100%';
+        dsMonAn.style.maxHeight = '141px';
+        document.querySelector('.monan i').classList.remove('fa-arrow-down');
+        document.querySelector('.monan i').classList.add('fa-arrow-up');
+        document.querySelector('.monan').style.maxHeight = '141px';
+        document.querySelector('.monan').style.overflow = 'auto';
     }
     else {
         dsMonAn.style.maxHeight = '0px';
+        document.querySelector('.monan i').classList.remove('fa-arrow-up');
+        document.querySelector('.monan i').classList.add('fa-arrow-down');
+        document.querySelector('.monan').style.maxHeight = '0px';
+        document.querySelector('.monan').style.overflow = 'auto';
     }
 }
 
+
+
+// ==> GỌI CÁC HÀM ĐỂ XỬ LÝ
 showProduct();
 renderPage();
 changePage();

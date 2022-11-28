@@ -918,5 +918,17 @@ input:checked+.slider:before {
 }
 
 .detail__monan li {
-    line-height: 30px;
+    line-height: 31px;
+}
+
+.monan {
+    position: relative;
+    /* min-height: 100px;
+    overflow: auto; */
+}
+
+.monan i {
+    position: absolute;
+    top: 8px;
+    right: 14px;
 }

@@ -4,6 +4,19 @@
     overflow: hidden;
 }
 
+body::-webkit-scrollbar {
+    width: 8px;
+    background-color: #F5F5F5;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: gray;
+}
+
 /* SIDEBAR */
 .sidebar {
     padding: 20px 0px;
@@ -1622,7 +1635,7 @@ strong {
 .checkout__cart-products::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-    background-color: var(--outstand-color);
+    background-color: gray;
 }
 
 .checkout__no-product {
@@ -2071,7 +2084,7 @@ strong {
 /* List Order */
 .nenTrang {
     background-color: white;
-    padding: 0 18%;
+    padding: 40px 18%;
 }
 
 .listSanPham {
@@ -2166,8 +2179,8 @@ strong {
 /* Hình ảnh sản phẩm */
 .imgHide img {
     position: absolute;
-    left: 0;
-    top: 50px;
+    left: 55%;
+    top: 0;
     width: 150px;
     height: 0;
     border-radius: 10px;

@@ -602,23 +602,29 @@ var products = [
         masp: 'douong6'
     }
 ]
+// Set mặc định cho product
+const Products = localStorage.getItem('product') ? JSON.parse(localStorage.getItem('product')) : products;
+if(Products === products) {
+    localStorage.setItem("product", JSON.stringify(Products))
+}
 
+
+
+// ==> PHẦN DÙNG CHUNG 
 // Cắt ảnh
 function splitImg(img) {
     var img2 = img.split('fakepath\\');
     if(img2.length === 1) {
-        return './images/' + img2;
+        return img2;
     }
     else {
-        return './images/' + img2[1];
+        return img2[1];
     }
 }
 
-// Set mặc định cho product
-const Products = localStorage.getItem('product') ? JSON.parse(localStorage.getItem('product')) : products;
-
-if(Products === products) {
-    localStorage.setItem("product", JSON.stringify(Products))
+// Ghép ảnh
+function collageImg(img) {
+    return './images/' + img;
 }
 
 // Trả về loại sp
@@ -648,7 +654,7 @@ setInterval(function() {
     }
 }, 4000);
 
-// Trả về vị trí trong mảng của KH đang đăng nhập
+// Trả về vị trí trong của account của KH đang đăng nhập
 function returnCurIndex() {
     var arr = localStorage.getItem("account") ? JSON.parse(localStorage.getItem("account")) : accounts;
 
@@ -661,12 +667,94 @@ function returnCurIndex() {
     return -1;
 }
 
-// ** Xử lý thay đổi URL trên sidebar
+// Hàm thêm dấu phẩy
+function addComma(number) {
+    number = '' + number;
+    if (number.length > 3) {
+        var mod = number.length % 3;
+        var output = (mod > 0 ? (number.substring(0,mod)) : '');
+        for (i=0 ; i < Math.floor(number.length / 3); i++) {
+            if ((mod == 0) && (i == 0))
+                output += number.substring(mod+ 3 * i, mod + 3 * i + 3);
+            else
+                output+= ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
+        }
+        return (output);
+    }
+    else return number;
+}
+
+// Hàm xóa dấu phẩy
+function deleteComma(s) {
+    var arr = s.split(',');
+    var money = '';
+    for(let i=0; i < arr.length; i++) {
+        money += arr[i];
+    }
+
+    return parseInt(money);
+}
+
+// Hàm lấy ngày tháng hiện tại
+function getCurDate() {
+    var date = new Date();
+
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    var s = `${day}-${month}-${year}`;
+
+    return s;
+}
+
+// Xử lý cuộn lên trang đầu
+const scrollToTop = document.getElementById('scroll-to-top');
+
+function scrollTopHandle() {
+    window.onscroll = function() {
+        // Kiểm tra vị trí hiện tại của con trỏ so với nội dung trang
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            //nếu lớn hơn 200px thì hiện button
+            scrollToTop.style.display = "block";
+        }
+        else {
+            //nếu nhỏ hơn 200px thì ẩn button
+            scrollToTop.style.display = "none";
+        }
+    };
+    //gán sự kiện click cho button
+    scrollToTop.addEventListener("click", function(){
+        //Nếu button được click thì nhảy về đầu trang
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    });
+}
+
+// Xử lý tăng giảm số lượng
+const amountBtns = document.querySelectorAll(".modal__inner-amount input[type='button']");
+var quantity = document.querySelector(".modal__inner-amount input[type='text']");
+var sizeProduct = document.querySelector('.modal__inner-size select');
+amountBtns.forEach((amountBtn, index) => {
+    amountBtn.onclick = function() {
+        if(index == 0) {
+            if(quantity.value == 1) {
+                quantity.value = 1;
+            }
+            else {
+                quantity.value--;
+            }
+        }
+        else {
+            quantity.value++;
+        }
+    }
+})
+
+// Xử lý thay đổi URL trên sidebar
 const productList = document.querySelector('.section__content-list');
 const sectionItems = document.querySelectorAll('.section__header-menu li');
 const sectionContents = document.querySelectorAll('.section__content');
 const sidebarItems = document.querySelectorAll('.sidebar__menu-item');
-
 function sidebarControl() {
     sidebarItems.forEach(function(sidebarItem, index) {
         sidebarItem.onclick = function() {
@@ -693,55 +781,15 @@ function sidebarControl() {
                 case 3:
                     document.querySelector('.section__contact.section__contact').style.display = "flex";
                     break;
-                // case 4:
-                //     window.location.pathname = 'admin.html';
-                //     break;
             }
         }
     })
     
 }
 
-// Render các sp và hiện ra phân trang mặc định ở trang đầu
-function renderProductDefault(arrList) {
-    pageDefault();
-    renderProduct(arrList);
-    productHandle(arrList);
-
-    if(arrList.length > 8) {
-        pagi.style.display = "flex";
-        PagiHandle(arrList);
-        renderNumPage();
-    }
-    else {
-        pagi.style.display = "none";
-    }
-    changeNumPage(arrList);
-}
-
-// ** Xử lý render sản phẩm ra màn hình
-function renderProduct(items) {
-    const htmls = items.map((item, index) => {
-        if(index >= start1 && index < end) {
-            return `
-                <li class="section__content-item">
-                    <div class="section__content-item-img" style="background-image: url('${splitImg(item.image)}');"></div>
-                    <div class="section__content-item-text">
-                        <h3>${item.name}</h3>
-                        <p>${item.price} ₫</p>
-                    </div>
-                    <i class="eye-icon ti-eye" style="display: none;"></i>
-                </li>`
-        }
-    });
-
-    productList.innerHTML = htmls.join('');
-}
-
-// ** Xử lý di chuột qua các sản phẩm trong danh sách
+// Xử lý di chuột qua các sản phẩm trong danh sách
 const overlay = document.querySelector('.overlay.detail');
 const modal = document.querySelector('.modal');
-
 function productHandle(arrList) {
     var productItems = document.querySelectorAll('.section__content-item');
     var sectionImages = document.querySelectorAll('.section__content-item-img');
@@ -761,7 +809,7 @@ function productHandle(arrList) {
         }
 
         details[index].onclick = function() {
-            document.querySelector('.modal__inner-img').style.backgroundImage = `url(${splitImg(arrList[index + perPage * (curPage - 1)].image)})`;
+            document.querySelector('.modal__inner-img').style.backgroundImage = `url(${collageImg(arrList[index + perPage * (curPage - 1)].image)})`;
             document.querySelector('.modal__inner-heading').innerText = arrList[index + perPage * (curPage - 1)].name;
             document.querySelector('.modal__inner-price').innerText = arrList[index + perPage * (curPage - 1)].price;
             overlay.classList.add('open');
@@ -789,7 +837,7 @@ function productHandle(arrList) {
     })
 }
 
-// ** Điều khiển nút bấm trên Section
+// Điều khiển nút bấm trên Section
 function sectionControl(list) {
     list.forEach((item, index) => {
         item.onclick = function() {
@@ -804,6 +852,45 @@ function sectionControl(list) {
         }
     })
     
+}
+
+
+
+// ==> PHÂN TRANG
+// ** Render các sp và hiện ra phân trang mặc định ở trang đầu
+function renderProductDefault(arrList) {
+    pageDefault();
+    renderProduct(arrList);
+    productHandle(arrList);
+
+    if(arrList.length > 8) {
+        pagi.style.display = "flex";
+        PagiHandle(arrList);
+        renderNumPage();
+    }
+    else {
+        pagi.style.display = "none";
+    }
+    changeNumPage(arrList);
+}
+
+// ** Xử lý render sản phẩm ra màn hình
+function renderProduct(items) {
+    const htmls = items.map((item, index) => {
+        if(index >= start1 && index < end) {
+            return `
+                <li class="section__content-item">
+                    <div class="section__content-item-img" style="background-image: url('${collageImg(item.image)}');"></div>
+                    <div class="section__content-item-text">
+                        <h3>${item.name}</h3>
+                        <p>${item.price} ₫</p>
+                    </div>
+                    <i class="eye-icon ti-eye" style="display: none;"></i>
+                </li>`
+        }
+    });
+
+    productList.innerHTML = htmls.join('');
 }
 
 // ** Xử lý phân trang
@@ -823,6 +910,7 @@ function getCurrentPage(curPage) {
     end = curPage * perPage;
 }
 
+// next, prev
 function PagiHandle(arrList) {
     totalPage = Math.ceil(arrList.length / perPage); // Tổng số trang của 1 loại sp
     // Ấn next tới trang tiếp theo
@@ -916,7 +1004,10 @@ function pageDefault() {
     btnPrev.classList.remove('active');
 }
 
-// ** Xử lý ẩn/hiện form Đăng ký/Đăng nhập
+
+
+// ==> FORM ĐĂNG KÝ / ĐĂNG NHẬP
+// Xử lý ẩn/hiện form Đăng ký/Đăng nhập
 const loginBtn = document.querySelector('#section__header-login:not(.section__login)');
 const overlayLogin = document.querySelector('.overlay.login');
 const modalLogin = document.querySelector('.modal.login');
@@ -963,7 +1054,7 @@ loginBack.onclick = function() {
 
 closeFormLogin();
 
-// ** Xử lý lưu dữ liệu trên form Đăng ký/Đăng nhập
+// Xử lý lưu dữ liệu trên form Đăng ký/Đăng nhập
 const loginFullname = document.getElementById('fullname');
 const loginUsername = document.getElementById('username');
 const loginpassword = document.getElementById('password');
@@ -993,10 +1084,8 @@ var accounts = [
         donhang: []
     }
 ]
-
 // Set mặc định cho arr (account)
 const arr = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
-
 if(arr === accounts) {
     localStorage.setItem("account", JSON.stringify(accounts))
 }
@@ -1067,7 +1156,9 @@ function addLogin() {
     clear();
 }
 
-// ** Check lỗi Form
+
+
+// ==> CHECK LỖI FORM
 var isFullname = false;
 var isUsername = false;
 var isPassword = false;
@@ -1225,7 +1316,7 @@ function checkAddress(address, index) {
     }
 }
 
-// Kiểm tra đăng nhập Người dùng bình thường
+// Kiểm tra đăng nhập của User
 function checkSignin() {
     var Username = document.getElementById('Username').value;
     var Password = document.getElementById('Password').value;
@@ -1236,6 +1327,20 @@ function checkSignin() {
             arr[0].Username = arr[i].Username;
             arr[0].Password = arr[i].Password;
             localStorage.setItem('account', JSON.stringify(arr));
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// Kiểm tra đăng nhập của Admin
+function checkAdmin() {
+    var Username = document.getElementById('Username').value;
+    var Password = document.getElementById('Password').value;
+    var arr = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
+    for(let i = 1; i < arr.length; i++) {
+        if (Username == "admin" && Password == "admin" && arr[i].Username === Username && arr[i].Password === Password) {
             return true;
         }
     }
@@ -1256,20 +1361,6 @@ document.getElementById('again-password').addEventListener('keydown', function(e
     }
 })
 
-// Kiểm tra đăng nhập Người dùng là Admin
-function checkAdmin() {
-    var Username = document.getElementById('Username').value;
-    var Password = document.getElementById('Password').value;
-    var arr = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
-    for(let i = 1; i < arr.length; i++) {
-        if (Username == "admin" && Password == "admin" && arr[i].Username === Username && arr[i].Password === Password) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 function clear() {
     loginFullname.value = "";
     loginUsername.value = "";
@@ -1277,6 +1368,9 @@ function clear() {
     loginAgainPassword.value = "";
 }
 
+
+
+// ==> ĐĂNG KÝ
 function btnSignup() {
     var fullname = loginFullname.value;
     checkFullname(fullname, 2);
@@ -1320,11 +1414,13 @@ function btnSignup() {
         }, 2000)
     }
 }
-
 document.getElementById('login-btn').onclick = function(e) {
     btnSignup();
 }
 
+
+
+// ==> ĐĂNG NHẬP
 function btnSignin() {
     var arr = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
     if(checkAdmin()) {
@@ -1352,10 +1448,9 @@ function btnSignin() {
             overlayLogin.classList.remove('open');
         }, 2000)
 
-        // setTimeout(function() {
-        //     window.location.href = 'index.html';
-        // }, 2300)
-
+        setTimeout(function() {
+            window.location.reload();
+        }, 2300)
     }
     else if(checkSignin()) {
         arr[0].isUser = true;
@@ -1379,6 +1474,10 @@ function btnSignin() {
             overlayNotify.style.opacity = '0';
             overlayLogin.classList.remove('open');
         }, 2000)
+
+        setTimeout(function() {
+            window.location.reload();
+        }, 2300)
     }
     else {
         setTimeout(function() {
@@ -1401,7 +1500,6 @@ function btnSignin() {
     localStorage.setItem('account',JSON.stringify(arr))
 
 }
-
 document.getElementById('Login-Btn').onclick = function() {
     btnSignin();
     getNoProductCart();
@@ -1426,7 +1524,9 @@ function checkAccount() {
     localStorage.setItem('account',JSON.stringify(arr));
 }
 
-// Xử lý khi ấn vào nút Log out
+
+
+// ==> ĐĂNG XUẤT
 const logout = document.querySelector('.sidebar__log-out');
 const notify = document.querySelector('.notify'); 
 
@@ -1470,51 +1570,9 @@ logout.onclick = function() {
     getNoProductCart();
 }
 
-// ** Xử lý cuộn lên trang đầu
-const scrollToTop = document.getElementById('scroll-to-top');
 
-function scrollTopHandle() {
-    window.onscroll = function() {
-        // Kiểm tra vị trí hiện tại của con trỏ so với nội dung trang
-        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-            //nếu lớn hơn 200px thì hiện button
-            scrollToTop.style.display = "block";
-        }
-        else {
-            //nếu nhỏ hơn 200px thì ẩn button
-            scrollToTop.style.display = "none";
-        }
-    };
-    //gán sự kiện click cho button
-    scrollToTop.addEventListener("click", function(){
-        //Nếu button được click thì nhảy về đầu trang
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-    });
-}
 
-// ** Xử lý tăng giảm số lượng
-const amountBtns = document.querySelectorAll(".modal__inner-amount input[type='button']");
-var quantity = document.querySelector(".modal__inner-amount input[type='text']");
-var sizeProduct = document.querySelector('.modal__inner-size select');
-
-amountBtns.forEach((amountBtn, index) => {
-    amountBtn.onclick = function() {
-        if(index == 0) {
-            if(quantity.value == 1) {
-                quantity.value = 1;
-            }
-            else {
-                quantity.value--;
-            }
-        }
-        else {
-            quantity.value++;
-        }
-    }
-})
-
-// ** Tìm kiếm sản phẩm
+// ==> TÌM KIẾM
 var sectionMenu = document.querySelector('.section__header-menu');
 var sectionTitle = document.querySelector('.section__content-title');
 var sectionSearch = document.getElementById('section__search');
@@ -1542,8 +1600,6 @@ sectionSearch.oninput = function() {
 }
 
 // Xử lý tìm kiếm
-var isFilter = false;
-
 function searchProduct() {
     switchToFood();
     const x = sectionSearch.value.toLowerCase();
@@ -1601,6 +1657,7 @@ sectionSearch.addEventListener('keydown', function(e) {
 
 // Xử lý bộ lọc tìm kiếm
 const filterBtn = document.getElementById('filter-btn');
+var isFilter = false;
 filterBtn.addEventListener('click', function() {
     if(!isFilter) {
         isFilter = true;
@@ -1754,7 +1811,9 @@ function filterHandle() {
     }
 }
 
-// ** Xử lý giỏ hàng
+
+
+// ==> THANH TOÁN GIỎ HÀNG
 const pay = document.getElementById('pay');
 const overlayCart = document.querySelector('.overlay.cart-info');
 const closeCart = document.querySelector('.close-icon.cart');
@@ -1912,6 +1971,9 @@ function thongTinDonHang(i) {
     updateCart()
 }
 
+
+
+// ==> GIỎ HÀNG
 // Thêm vào giỏ hàng
 var addCart = document.querySelector(".modal__inner-add-cart");
 const cartNotify = document.querySelector('.cart-notify');
@@ -2002,70 +2064,7 @@ addCart.onclick = () => {
     updateCart()
 }
 
-// Xử lý giá sản phẩm
-function addComma(number) {
-    number = '' + number;
-    if (number.length > 3) {
-        var mod = number.length % 3;
-        var output = (mod > 0 ? (number.substring(0,mod)) : '');
-        for (i=0 ; i < Math.floor(number.length / 3); i++) {
-            if ((mod == 0) && (i == 0))
-                output += number.substring(mod+ 3 * i, mod + 3 * i + 3);
-            else
-                output+= ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
-        }
-        return (output);
-    }
-    else return number;
-}
-
-function deleteComma(s) {
-    var arr = s.split(',');
-    var money = '';
-    for(let i=0; i < arr.length; i++) {
-        money += arr[i];
-    }
-
-    return parseInt(money);
-}
-
-// Hàm lấy ngày tháng hiện tại
-function getCurDate() {
-    var date = new Date();
-
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-    var s = `${day}-${month}-${year}`;
-
-    return s;
-}
-
-function getNoProductCart() {
-    var arr = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
-    if(returnCurIndex() === -1) {
-        document.querySelector('.checkout__cart-products').innerHTML = `<div class="checkout__no-product">
-                                                                            Bạn chưa đăng nhập
-                                                                        </div>`
-        document.getElementById("checkout__cart-total-amount").innerText = '0';
-        document.getElementById("checkout__cart-total-money").innerText = '0 ₫';
-        document.querySelector('.section__notify-cart-list').innerHTML = `<span>Bạn chưa đăng nhập</span>`;
-        document.querySelector('.section__login-list').innerHTML = `<li>Bạn chưa đăng nhập</li>`;
-    }
-    else if(arr[returnCurIndex()].cart.length === 0) {
-        document.querySelector('.checkout__cart-products').innerHTML = `<div class="checkout__no-product">
-                                                                            Giỏ hàng trống
-                                                                        </div>`
-        document.getElementById("checkout__cart-total-amount").innerText = '0';
-        document.getElementById("checkout__cart-total-money").innerText = '0 ₫';
-        document.querySelector('.section__notify-footer-text').innerText = 'Tổng tiền (0) sản phẩm: ';
-        document.querySelector('.section__notify-footer-money').innerText = '0 ₫';
-        document.querySelector('.section__notify-cart-list').innerHTML = `<span>Giỏ hàng trống</span>`;
-    }
-}
-
-getNoProductCart()
-
+// Xóa tất cả sp trong giỏ
 function deleteAllCart() {
     var arr = localStorage.getItem("account") ? JSON.parse(localStorage.getItem("account")) : accounts;
     var list = arr[returnCurIndex()].cart
@@ -2075,6 +2074,7 @@ function deleteAllCart() {
     updateCart();
 }
 
+// Khởi tạo giỏ: gồm xóa all sp, xóa 1 sp, đếm số lượng sp
 function initCart() {
     var removeCart = document.querySelectorAll(".product-remove");
     removeCart.forEach((ele) => {
@@ -2164,6 +2164,7 @@ function initCart() {
     });
 }
 
+// Cập nhật lại giỏ hàng
 function updateCart() {
     if(returnCurIndex() != -1) {
         var arr = localStorage.getItem("account") ? JSON.parse(localStorage.getItem("account")) : accounts;
@@ -2256,8 +2257,35 @@ function renderCartNotify(arr) {
     }
 }
 
-// ** Xử lý xem trang người dùng và đơn hàng đã đặt
+// Xử lý nếu chưa có sp trong giỏ hoặc chưa đăng nhập
+function getNoProductCart() {
+    var arr = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
+    if(returnCurIndex() === -1) {
+        document.querySelector('.checkout__cart-products').innerHTML = `<div class="checkout__no-product">
+                                                                            Bạn chưa đăng nhập
+                                                                        </div>`
+        document.getElementById("checkout__cart-total-amount").innerText = '0';
+        document.getElementById("checkout__cart-total-money").innerText = '0 ₫';
+        document.querySelector('.section__notify-cart-list').innerHTML = `<span>Bạn chưa đăng nhập</span>`;
+        document.querySelector('.section__login-list').innerHTML = `<li>Bạn chưa đăng nhập</li>`;
+    }
 
+    else if(arr[returnCurIndex()].cart.length === 0) {
+        document.querySelector('.checkout__cart-products').innerHTML = `<div class="checkout__no-product">
+                                                                            Giỏ hàng trống
+                                                                        </div>`
+        document.getElementById("checkout__cart-total-amount").innerText = '0';
+        document.getElementById("checkout__cart-total-money").innerText = '0 ₫';
+        document.querySelector('.section__notify-footer-text').innerText = 'Tổng tiền (0) sản phẩm: ';
+        document.querySelector('.section__notify-footer-money').innerText = '0 ₫';
+        document.querySelector('.section__notify-cart-list').innerHTML = `<span>Giỏ hàng trống</span>`;
+    }
+}
+getNoProductCart()
+
+
+
+// ==> TRANG NGƯỜI DÙNG VÀ ĐƠN HÀNG ĐÃ ĐẶT
 // Ẩn sidebar và các section
 function hideSidebar() {
     document.querySelector('.sidebar').style.display = 'none';
@@ -2268,29 +2296,17 @@ function hideSidebar() {
     })
 }
 
-function showSidebar() {
-    document.querySelector('.sidebar').style.display = 'flex';
-    document.getElementById('main').style.gridTemplateColumns = '100px 1fr';
-    document.querySelector('.section').style.padding = '25px 25px 0px 25px';
-    sectionContents.forEach(function(item, index) {
-        if(index === 3) {
-            item.style.display = 'flex';
-        }
-        else
-            item.style.display = 'block';
-    })
-    // window.location.pathname = 'index.html';
-}
-
 var tongTienTatCaDonHang = 0; // lưu tổng tiền từ tất cả các đơn hàng đã mua
 var tongSanPhamTatCaDonHang = 0;
 
 // Bấm vào để vô trang người dùng
-document.querySelector('.section__login-order').addEventListener('click', function() {
-    hideSidebar();
-
-    document.querySelector('.donHangDaDat').style.display = 'block';
-})
+if(document.querySelector('.section__login-order') != null) {
+    document.querySelector('.section__login-order').addEventListener('click', function() {
+        hideSidebar();
+    
+        document.querySelector('.donHangDaDat').style.display = 'block';
+    })
+}
 
 function showOrder() {
     var arr = localStorage.getItem("account") ? JSON.parse(localStorage.getItem("account")) : accounts;
@@ -2416,9 +2432,8 @@ function addDonHang(donhang) {
     div.innerHTML += s;
 }
 
-//  
+// Tạo thanh trượt cho đơn hàng
 const scrollOrder = document.querySelectorAll('.listSanPham tr:first-child');
-
 scrollOrder.forEach(function(item, index) {
     item.onclick = function() {
         var listSP = document.querySelectorAll('.listSanPham')[index];
@@ -2442,14 +2457,9 @@ scrollOrder.forEach(function(item, index) {
     }
 })
 
-// Bấm vào để đăng xuất
-document.querySelector('.section__login-back').addEventListener('click', function() {
-    showSidebar();
-    getNoProductCart();
-})
+
 
 // ==> Gọi các hàm để thực hiện xử lý
-
 updateCart();
 sidebarControl();
 sectionControl(sectionItems);

@@ -1573,6 +1573,7 @@ strong {
 .notify__confirm-text {
     font-size: 16px;
     line-height: 20px;
+    color: red;
 }
 
 .notify__confirm-btn {

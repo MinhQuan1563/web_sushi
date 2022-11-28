@@ -1646,6 +1646,8 @@ function switchToFood() {
     })
 
     document.querySelector('.section__content.food').style.display = "block";
+    renderProduct(getProducts('bento'));
+    renderProductDefault(getProducts('bento'));
     updateCart();
 }
 
@@ -1835,16 +1837,48 @@ document.querySelector('.section__notify-footer-tocart').onclick = function() {
 
 // Xử lý khi ấn vào thanh toán
 pay.addEventListener('click', function() {
+    updateCart();
     var arr = localStorage.getItem("account") ? JSON.parse(localStorage.getItem("account")) : accounts;
     if(returnCurIndex() != -1) {
-        overlayCart.classList.add('open');
-
-        loginEmail.value = arr[returnCurIndex()].email;
-
         if(arr[returnCurIndex()].cart.length > 0) {
+            overlayCart.classList.add('open');
+    
+            loginEmail.value = arr[returnCurIndex()].email;
+            
             confirmBtn.addEventListener('click', function() {
                 thongTinDonHang(returnCurIndex());
             })
+        }
+        else {
+            notify.style.transform = 'translateX(0)';
+            notify.style.opacity = '1';
+            notify.innerHTML = `<div class='notify__confirm'>
+                                        <div class="notify__confirm-text">
+                                            Giỏ hàng trống!! Không thể thanh toán 
+                                        </div>
+                                        <div class="notify__confirm-btn">
+                                            <div class="notify__confirm-ok">
+                                                Mua hàng
+                                            </div>
+                                            <div class="notify__confirm-cancel">
+                                                Hủy
+                                            </div>
+                                        </div>
+                                    </div>`;
+    
+            document.querySelector('.notify__confirm').onclick = function(e) {
+                e.stopPropagation();
+            }
+
+            document.querySelector('.notify__confirm-ok').onclick = function() {
+                notify.style.transform = 'translateX(100%)';
+                notify.style.opacity = '0';
+                switchToFood();
+            }
+            document.querySelector('.notify__confirm-cancel').onclick = function() {
+                notify.style.transform = 'translateX(100%)';
+                notify.style.opacity = '0';
+            }
         }
     }
     else {
@@ -1869,14 +1903,14 @@ pay.addEventListener('click', function() {
         }
 
         document.querySelector('.notify__confirm-ok').onclick = function() {
-                notify.style.transform = 'translateX(100%)';
-                notify.style.opacity = '0';
-                openFormLogin();
-            }
-            document.querySelector('.notify__confirm-cancel').onclick = function() {
-                notify.style.transform = 'translateX(100%)';
-                notify.style.opacity = '0';
-            }
+            notify.style.transform = 'translateX(100%)';
+            notify.style.opacity = '0';
+            openFormLogin();
+        }
+        document.querySelector('.notify__confirm-cancel').onclick = function() {
+            notify.style.transform = 'translateX(100%)';
+            notify.style.opacity = '0';
+        }
     }
 })
 

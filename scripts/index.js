@@ -608,6 +608,30 @@ if(Products === products) {
     localStorage.setItem("product", JSON.stringify(Products))
 }
 
+var accounts = [
+    {
+        isAdmin: false,
+        isUser: false,
+        isLogout: true,
+        Fullname: 'user',
+        Username: 'user',
+        Password: 'user'
+    },
+    {
+        Fullname: 'Admin',
+        Password: 'admin',
+        Username: 'admin',
+        email: 'admin@gmail.com',
+        ngaydangky: '27-11-2022',
+        cart: [],
+        donhang: []
+    }
+]
+// Set mặc định cho arr (account)
+const arr = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
+if(arr === accounts) {
+    localStorage.setItem("account", JSON.stringify(accounts))
+}
 
 
 // ==> PHẦN DÙNG CHUNG 
@@ -1064,31 +1088,6 @@ const loginPhone = document.getElementById('phone');
 const loginAddress = document.getElementById('address');
 const loginNote = document.getElementById('mytextarea');
 const overlayNotify = document.querySelector('.overlay-notify');
-
-var accounts = [
-    {
-        isAdmin: false,
-        isUser: false,
-        isLogout: true,
-        Fullname: 'user',
-        Username: 'user',
-        Password: 'user'
-    },
-    {
-        Fullname: 'Admin',
-        Password: 'admin',
-        Username: 'admin',
-        email: 'admin@gmail.com',
-        ngaydangky: '27-11-2022',
-        cart: [],
-        donhang: []
-    }
-]
-// Set mặc định cho arr (account)
-const arr = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
-if(arr === accounts) {
-    localStorage.setItem("account", JSON.stringify(accounts))
-}
 
 loginFullname.onblur = function() {
     var fullname = loginFullname.value;

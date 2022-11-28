@@ -622,8 +622,8 @@ var accounts = [
         Fullname: 'Admin',
         Password: 'admin',
         Username: 'admin',
-        email: 'cnttdhsg@gmail.com',
-        ngaydangky: '',
+        email: 'admin@gmail.com',
+        ngaydangky: '27-11-2022',
         cart: [],
         donhang: []
     }

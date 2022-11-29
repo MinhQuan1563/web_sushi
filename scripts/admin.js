@@ -1261,6 +1261,30 @@ function editProduct(i) {
 
 }
 
+// ** Tìm kiếm sản phẩm
+// Tìm kiếm
+function timKiemSanPham(inp) {
+    var kieuTim = document.getElementsByName('kieuTimSanPham')[0].value;
+    var text = inp.value;
+
+    // mảng lưu vị trí cột
+    var vitriKieuTim = {
+        'ma':1,
+        'ten':3
+    }; 
+
+    var dsSanPham = document.querySelector('.section__product').querySelector('.table-content').getElementsByTagName('tr');
+    for (var sp of dsSanPham) {
+        var tmp = sp.getElementsByTagName('td')[vitriKieuTim[kieuTim]].innerHTML.toLowerCase();
+
+        if (tmp.indexOf(text.toLowerCase()) < 0) {
+            sp.style.display = 'none';
+        } else {
+            sp.style.display = '';
+        }
+    }
+}
+
 
 
 // ==> BẢNG KHÁCH HÀNG
@@ -1338,6 +1362,29 @@ function deleteUser(i) {
     }
 }
 
+// Tìm kiếm người dùng
+function timKiemNguoiDung(inp) {
+    var kieuTim = document.querySelector('.kieuTimKhachHang').value;
+    var text = inp.value;
+
+    // Lọc
+    var vitriKieuTim = {
+        'ten':2, 
+        'email':3, 
+        'taikhoan':4
+    };
+
+    var dsKhachHang = document.querySelector('.section__customer').querySelector('.table-content').getElementsByTagName('tr');
+    for (var kh of dsKhachHang) {
+        var tmp = kh.getElementsByTagName('td')[vitriKieuTim[kieuTim]].innerHTML.toLowerCase();
+
+        if (tmp.indexOf(text.toLowerCase()) < 0) {
+            kh.style.display = 'none';
+        } else {
+            kh.style.display = '';
+        }
+    }
+}
 
 
 // ==> BẢNG ĐƠN HÀNG

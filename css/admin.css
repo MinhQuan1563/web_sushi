@@ -256,7 +256,6 @@ header h2 {
 
 
 /*  phần footer table  */
-
 .table-footer {
     background-color: #3e464d;
     padding: 12px;
@@ -265,16 +264,21 @@ header h2 {
     border-top: 1px solid #23282c;
 }
 
+.table-footer select,
+.table-footer input,
 .table-footer button {
-    padding: 10px 16px;
+    padding: 5px 10px;
     border: 3px solid transparent;
     background-color: #cccece;
     outline: none;
 }
 
+/* Tìm kiếm theo ngày ở đơn hàng */
+.timTheoNgay {
+    color: white;
+}
 
 /* Nút bấm ở footer */
-
 .table-footer button {
     cursor: pointer;
     background-color: #23282c;

@@ -173,6 +173,11 @@
                 <!-- Phân trang -->
     
                 <div class="table-footer">
+                    <select name="kieuTimSanPham">
+                        <option value="ma">Tìm theo mã</option>
+                        <option value="ten">Tìm theo tên</option>
+                    </select>
+                    <input type="text" placeholder="Tìm kiếm..." onkeyup="timKiemSanPham(this)">
                     <button id="add-product">
                         <i class="fa fa-plus-square"></i>
                         Thêm sản phẩm
@@ -257,20 +262,14 @@
 
                 </div>
     
-                <div class="table-footer">
+                <!-- <div class="table-footer">
                     <div class="timTheoNgay">
                         Từ ngày: <input type="date" id="fromDate">
                         Đến ngày: <input type="date" id="toDate">
     
-                        <button><i class="fa fa-search"></i> Tìm</button>
+                        <button onclick="locDonHangTheoKhoangNgay()"><i class="fa fa-search"></i> Tìm</button>
                     </div>
-    
-                    <select name="kieuTimDonHang">
-                        <option value="ma">Tìm theo mã đơn</option>
-                        <option value="khachhang">Tìm theo tên khách hàng</option>
-                        <option value="trangThai">Tìm theo trạng thái</option>
-                    </select>
-                </div>
+                </div> -->
 
                 <div class="overlay order">
                     <div class="close" onclick="this.parentElement.style.transform = 'scale(0)';">
@@ -387,13 +386,12 @@
                 </div>
     
                 <div class="table-footer">
-                    <select name="kieuTimKhachHang">
+                    <select class="kieuTimKhachHang">
                         <option value="ten">Tìm theo họ tên</option>
                         <option value="email">Tìm theo email</option>
                         <option value="taikhoan">Tìm theo tài khoản</option>
                     </select>
                     <input type="text" placeholder="Tìm kiếm..." onkeyup="timKiemNguoiDung(this)">
-                    <button onclick="openThemNguoiDung()"><i class="fa fa-plus-square"></i> Thêm người dùng</button>
                 </div>
 
                 <div class="notify__delete">

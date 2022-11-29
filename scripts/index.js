@@ -792,8 +792,11 @@ function sidebarControl() {
                     break;
                 case 1:
                     document.querySelector('.section__content.food').style.display = "block";
-                    // renderProduct(getProducts('bento'));
+                    // Reset lại thanh chọn loại sp thành Bento (4 cái dưới)
+                    renderProduct(getProducts('bento'));
                     renderProductDefault(getProducts('bento'));
+                    document.querySelector('.section__header-menu li.active').classList.remove('active');
+                    document.querySelectorAll('.section__header-menu li')[0].classList.add('active');
                     break;
                 case 2:
                     document.querySelector('.section__content.checkout').style.display = "block";
@@ -873,7 +876,6 @@ function sectionControl(list) {
             renderProductDefault(arrList)
         }
     })
-    
 }
 
 
@@ -888,12 +890,12 @@ function renderProductDefault(arrList) {
     if(arrList.length > 8) {
         pagi.style.display = "flex";
         PagiHandle(arrList);
-        renderNumPage();
+        renderNumPage(); // Xuất các số trang
     }
     else {
         pagi.style.display = "none";
     }
-    changeNumPage(arrList);
+    changeNumPage(arrList); // Gọi hàm thay đổi số trang
 }
 
 // ** Xử lý render sản phẩm ra màn hình
@@ -1633,7 +1635,7 @@ function searchProduct() {
 
     if (arrProducts.length === 0 || x == '') {
         document.querySelector('.section__content-list').innerHTML = `<h1 class="search__notfound">
-        <img src="../images/no-products-found.png" alt="">
+        <img src="./images/no-products-found.png" alt="">
         <p>Không tìm thấy sản phẩm nào</p></h1>`
     }
 }
@@ -1806,7 +1808,7 @@ function filterHandle() {
 
     if (arrtemp.length === 0) {
         document.querySelector('.section__content-list').innerHTML = `<h1 class="search__notfound">
-        <img src="../images/no-products-found.png" alt="">
+        <img src="./images/no-products-found.png" alt="">
         <p>Không tìm thấy sản phẩm nào</p></h1>`
     }
 }
@@ -2410,7 +2412,8 @@ function addDonHang(donhang) {
     var div = document.getElementsByClassName('listOrder')[0];
     var sanpham = donhang.sanpham;
 
-    var s = `
+    var s = '';
+    s = `
             <table class="listSanPham">
                 <tr> 
                     <th colspan="6">

@@ -664,9 +664,6 @@ navItems.forEach(function(navItem, index) {
             case 3:
                 document.querySelector('.section__customer').style.display = "block";
                 break;
-            // case 4:
-            //     window.location.pathname = 'index.html';
-            //     break;
         }
     }
 })
@@ -917,7 +914,7 @@ function addProduct() {
                     setTimeout(function() {
                         notify.style.transform = 'translateX(100%)';
                         notify.style.opacity = '0';
-                    }, 1200)
+                    }, 2000)
 
                     check = false;
                 }
@@ -937,7 +934,27 @@ function addProduct() {
                         notify.style.transform = 'translateX(100%)';
                         notify.style.opacity = '0';
                         return ;
-                    }, 1200)
+                    }, 2000)
+
+                    check = false;
+                }
+
+                if(isNaN(price)) {
+                    setTimeout(function() {
+                        notify.style.transform = 'translateX(0)';
+                        notify.style.opacity = '1';
+                        notify.innerHTML = `<div class="login-notify error">
+                                                <i class="fa-solid fa-circle-xmark"></i>
+                                                Giá sản phẩm phải là chữ số !!
+                                            </div>`;
+                        
+                    }, 200)
+            
+                    setTimeout(function() {
+                        notify.style.transform = 'translateX(100%)';
+                        notify.style.opacity = '0';
+                        return ;
+                    }, 2000)
 
                     check = false;
                 }
@@ -966,7 +983,7 @@ function addProduct() {
                 setTimeout(function() {
                     notify.style.transform = 'translateX(100%)';
                     notify.style.opacity = '0';
-                }, 1200)
+                }, 2000)
                 
                 setTimeout(function() {
                     overlayProduct.style.transform = 'scale(0)';
@@ -992,7 +1009,7 @@ function addProduct() {
             setTimeout(function() {
                 notify.style.transform = 'translateX(100%)';
                 notify.style.opacity = '0';
-            }, 1200)
+            }, 2000)
         }
         notify.innerHTML = '';
     }
@@ -1176,7 +1193,7 @@ function editProduct(i) {
                     setTimeout(function() {
                         notify.style.transform = 'translateX(100%)';
                         notify.style.opacity = '0';
-                    }, 1200)
+                    }, 2000)
 
                     check = false;
                 }
@@ -1196,7 +1213,27 @@ function editProduct(i) {
                         notify.style.transform = 'translateX(100%)';
                         notify.style.opacity = '0';
                         return ;
-                    }, 1200)
+                    }, 2000)
+
+                    check = false;
+                }
+
+                if(isNaN(price)) {
+                    setTimeout(function() {
+                        notify.style.transform = 'translateX(0)';
+                        notify.style.opacity = '1';
+                        notify.innerHTML = `<div class="login-notify error">
+                                                <i class="fa-solid fa-circle-xmark"></i>
+                                                Giá sản phẩm phải là chữ số !!
+                                            </div>`;
+                        
+                    }, 200)
+            
+                    setTimeout(function() {
+                        notify.style.transform = 'translateX(100%)';
+                        notify.style.opacity = '0';
+                        return ;
+                    }, 2000)
 
                     check = false;
                 }
@@ -1223,7 +1260,7 @@ function editProduct(i) {
                 setTimeout(function() {
                     notify.style.transform = 'translateX(100%)';
                     notify.style.opacity = '0';
-                }, 1200)
+                }, 2000)
                 
                 setTimeout(function() {
                     overlayProduct2.style.transform = 'scale(0)';
@@ -1247,7 +1284,7 @@ function editProduct(i) {
             setTimeout(function() {
                 notify.style.transform = 'translateX(100%)';
                 notify.style.opacity = '0';
-            }, 1200)
+            }, 2000)
         }
         notify.innerHTML = '';
 

@@ -92,39 +92,16 @@ header h2 {
 
 
 /* ==================== section ==================== */
-
 .section {
     float: left;
     width: calc(100% - 175px);
 }
 
-.section > div {
-    display: none;
-}
-
-
-/* HOME */
-
-.home .canvasContainer {
-    display: inline-block;
-    width: 49%;
-    margin: 50px 0;
-}
-
-.flexContain {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-}
-
 /* Table */
-
 .table-outline {
     width: 100%;
     border: 1px solid #23282c;
 }
-
 
 /* phần chứa header (th) */
 .table-header {

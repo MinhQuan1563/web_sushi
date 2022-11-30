@@ -74,7 +74,7 @@
                             <div class="admin__statis-sum">
                                 <div class="admin__statis-sum-box">
                                     <div class="admin__statis-sum-box-icon sum-order">
-                                        <span class="material-symbols-rounded">inventory</span>
+                                        <span class="material-symbols-rounded"></span>
                                     </div>
                                     <div class="admin__statis-sum-box-info">
                                         <h3>Đơn hàng</h3>
@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="admin__statis-sum-box">
                                     <div class="admin__statis-sum-box-icon sum-product">
-                                        <i class="uil uil-apple"></i>
+                                        <div class="sanPhamDaBan"></div>
                                     </div>
                                     <div class="admin__statis-sum-box-info">
                                         <h3>Sản phẩm đã bán</h3>
@@ -92,31 +92,42 @@
                                 </div>
                                 <div class="admin__statis-sum-box">
                                     <div class="admin__statis-sum-box-icon total">
-                                        <span class="material-symbols-rounded">currency_bitcoin</span>
+                                        <span class="material-symbols-rounded"></span>
                                     </div>
                                     <div class="admin__statis-sum-box-info">
-                                        <h3>Doanh Thu</h3>
+                                        <h3>Tổng doanh Thu</h3>
                                         <p></p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="admin__statis-filter">
-                                <h3>Chọn loại sản phẩm:</h3>
-                                <select name="" id="" onchange="showChart(this.value)">
-                                    <option value="all" selected>Tất cả</option>
-                                    <option value="Bento">Bento</option>
-                                    <option value="Sushi">Sushi</option>
-                                    <option value="Sashimi">Sashimi</option>
-                                    <option value="Combo">Combo</option>
-                                    <option value="MonKem">Món kèm</option>
-                                    <option value="TrangMieng">Tráng miệng</option>
-                                </select>
+                            <!-- <div class="admin__statis-filter">
+                                <div class="phanloai">
+                                    <h3>Chọn loại sản phẩm:</h3>
+                                    <select name="" id="">
+                                        <option value="all" selected>Tất cả</option>
+                                        <option value="bento">Bento</option>
+                                        <option value="sushi">Sushi</option>
+                                        <option value="sashi">Sashimi</option>
+                                        <option value="combo">Combo</option>
+                                        <option value="ankem">Món kèm</option>
+                                        <option value="douong">Tráng miệng</option>
+                                    </select>
+                                </div>
+
+                                <div class="khoangthoigian">
+                                    Khoảng thời gian:
+                                    <input type="date" id="fromDate">
+                                    Đến
+                                    <input type="date" id="toDate">
+                                </div>
+
+                                <button onclick="thongKe()"><i class="fa fa-search"></i> Tìm</button>
                             </div>
 
                             <div class="admin__statis-chart-wrapper">
                                 <div class="admin__statis-chart-header">
-                                    <h3>Biểu đồ thống kê</h3>
+                                    <h3>Bảng Thống Kê</h3>
                                 </div>
 
                                 <div class="admin__statis-chart-note">
@@ -140,6 +151,46 @@
                                 <div class="admin__statis-chart">
 
                                 </div>
+                            </div> -->
+
+                            <div class="statistic mySlides">
+                                <div class="statistic-header">
+                                    <h1>THỐNG KÊ DOANH THU</h1>
+                                    <div class="statistic-filter">
+                                        <span>Từ ngày:</span>
+                                        &nbsp;
+                                        <input type="date" id="date-from1" onchange="statisticFilter()">
+                                        &nbsp;
+                                        <span>đến</span>
+                                        &nbsp;
+                                        <input type="date" id="date-to1" onchange="statisticFilter()">
+                                        &nbsp;
+                                        &nbsp;
+                                        <select id="statistic-brand-filter" onchange="statisticFilter()">
+                                            <option value="all">Tất cả</option>
+                                            <option value="bento">Bento</option>
+                                            <option value="sushi">Sushi</option>
+                                            <option value="sashi">Sashimi</option>
+                                            <option value="combo">Combo Sashimi</option>
+                                            <option value="ankem">Món ăn kèm</option>
+                                            <option value="douong">Nước uống và tráng miệng</option>
+                                        </select>
+                                        <button type="button" id="statistic-filter-btn">Lọc</button>
+                                    </div>
+                                    <div class="bill-list-table">
+                                        <table>
+                                            <tr>
+                                                <th style="width: 15%;">Mã sản phẩm</th>
+                                                <th style="width: 50%;">Sản phẩm đã bán</th>
+                                                <th style="width: 10%;">Số lượng</th>
+                                                <th style="width: 25%;">Thành tiền</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="statistic-content" id="statistic-perform">
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -148,6 +199,17 @@
     
             <!-- Sản Phẩm -->
             <div class="section__product">
+                <div class="table-footer">
+                    <select name="kieuTimSanPham">
+                        <option value="ma">Tìm theo mã</option>
+                        <option value="ten">Tìm theo tên</option>
+                    </select>
+                    <input type="text" placeholder="Tìm kiếm..." onkeyup="timKiemSanPham(this)">
+                    <button id="add-product">
+                        <i class="fa fa-plus-square"></i>
+                        Thêm sản phẩm
+                    </button>
+                </div>
                 <table class="table-header">
                     <tr>
                         <th style="width: 5%">Stt </th>
@@ -165,24 +227,12 @@
                 </div>
 
                 <!-- Phân trang -->
-                <div class="content__paging">
+                <!-- <div class="content__paging">
                     <i class="ti-arrow-circle-left btn-prev"></i>
                     <ul class="number-page" id="number-page"></ul>
                     <i class="ti-arrow-circle-right btn-next active"></i>
-                </div>
+                </div> -->
                 <!-- Phân trang -->
-    
-                <div class="table-footer">
-                    <select name="kieuTimSanPham">
-                        <option value="ma">Tìm theo mã</option>
-                        <option value="ten">Tìm theo tên</option>
-                    </select>
-                    <input type="text" placeholder="Tìm kiếm..." onkeyup="timKiemSanPham(this)">
-                    <button id="add-product">
-                        <i class="fa fa-plus-square"></i>
-                        Thêm sản phẩm
-                    </button>
-                </div>
     
                 <div class="overlay product add">
                     <div class="close" onclick="this.parentElement.style.transform = 'scale(0)';">
@@ -246,6 +296,14 @@
     
             <!-- Đơn Hàng -->
             <div class="section__order">
+                <div class="table-footer">
+                    <div class="timTheoNgay">
+                        Từ ngày: <input type="date" id="fromDate">
+                        Đến ngày: <input type="date" id="toDate">
+    
+                        <button onclick="locDonHangTheoKhoangNgay()"><i class="fa fa-search"></i> Tìm</button>
+                    </div>
+                </div>
                 <table class="table-header">
                     <tr>
                         <th style="width: 5%">Stt </th>
@@ -261,15 +319,6 @@
                 <div class="table-content" id="Order">
 
                 </div>
-    
-                <!-- <div class="table-footer">
-                    <div class="timTheoNgay">
-                        Từ ngày: <input type="date" id="fromDate">
-                        Đến ngày: <input type="date" id="toDate">
-    
-                        <button onclick="locDonHangTheoKhoangNgay()"><i class="fa fa-search"></i> Tìm</button>
-                    </div>
-                </div> -->
 
                 <div class="overlay order">
                     <div class="close" onclick="this.parentElement.style.transform = 'scale(0)';">

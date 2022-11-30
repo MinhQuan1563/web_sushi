@@ -97,6 +97,23 @@ header h2 {
     width: calc(100% - 175px);
 }
 
+.section .section__home {
+    display: block;
+}
+
+.section .section__product {
+    display: none;
+}
+
+.section .section__order {
+    display: none;
+}
+
+.section .section__customer {
+    display: none;
+}
+
+
 /* Table */
 .table-outline {
     width: 100%;
@@ -725,7 +742,8 @@ input:checked+.slider:before {
 }
 
 .admin__statis-sum-box-icon {
-    width: 70px;
+    min-width: 70px;
+    padding: 16px;
     height: 70px;
     display: flex;
     align-items: center;
@@ -746,6 +764,7 @@ input:checked+.slider:before {
     background-color: #ffa800;
 }
 
+.sanPhamDaBan,
 .admin__statis-sum-box-icon span {
     color: #fff;
     font-size: 30px;
@@ -910,4 +929,153 @@ input:checked+.slider:before {
     position: absolute;
     top: 8px;
     right: 14px;
+}
+
+/* Thống kê */
+.phanloai {
+    display: flex;
+}
+
+.khoangthoigian {
+    color: burlywood;
+    font-size: 18px;
+    font-weight: 900;
+    margin-left: 100px;
+}
+
+.admin__statis-filter input {
+    margin: 0 10px;
+}
+
+.admin__statis-filter button {
+    padding: 6px 18px;
+    margin-left: 90px;
+    cursor: pointer;
+}
+
+.statistic,.product-list {
+    display: flex;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 50px;
+    border: 3px solid black;
+    box-shadow:0px 0px 10px rgb(0 0 0 / 200%); 
+}
+
+.statistic-header,.product-list-header {
+    font-family: Arial, Helvetica, sans-serif;
+    height: 25%;
+    padding-bottom: unset;
+    font-size: 45px;
+    text-align: center;
+    position: sticky;
+    position: -webkit-sticky;
+}
+
+.statistic-header h1 {
+    font-size: 32px;
+}
+
+.statistic {
+    color: white;
+}
+
+.bill-list-table {
+    font-size: 18px;
+}
+
+.statistic-filter {
+    margin-bottom: 40px;
+}
+
+.statistic-filter,.product-list-filter {
+    font-family: 'Poppins',sans-serif;
+    height: 70px;
+    padding: 25px 148px 0px;
+    font-size: 25px;
+}
+.statistic-filter input,.priceto,.priceform {
+    height: 40px;
+    width: 160px;
+    font-size: 20px;
+    border-radius: 50px;
+    border: 3px solid black;
+    padding: 7px;
+}
+.statistic-filter button ,.product-list-filter button{
+    height: 40px;
+    width: 200px;
+    font-size: 20px;
+    background-color: black;
+    color: white;
+    border-radius: 100px;
+    border: 3px solid black;
+    transition: background .3s;
+    cursor: pointer;
+}
+.statistic-filter button:hover {
+    background-color: white;
+    color: black;
+}
+.statistic-filter select ,.product-list-filter select {
+    height: 40px;
+    width: 160px;
+    font-size: 20px;
+    border-radius: 50px;
+    border: 3px solid black;
+    padding: 5px;
+}
+.statistic-content {
+    height: 65%;
+    overflow-y: auto;
+}
+
+.statistic-content-prd , .productlist-content-prd{
+    font-family: 'Poppins',sans-serif;
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+    text-align: center;
+    font-size: 25px;
+    background-color: white;
+    border-radius: 30px;
+    border: 3px solid black;
+    margin-top: 20px;
+}
+.statistic-content-prd-id {
+    width: 15%;
+    padding: 35px 0px;
+}
+.statistic-content-prd-name {
+    display: flex;
+    width: 50%;
+}
+.statistic-content-prd-name div {
+    width: 20%;
+}
+.statistic-content-prd-name img {
+    height: 90px;
+    width: 90px;
+}
+.statistic-content-prd-name span {
+    width: 80%;
+    padding: 30px 0px;
+}
+.statistic-content-prd-quantity {
+    width: 10%;
+    padding: 30px 0px;
+}
+.statistic-content-price {
+    width: 25%;
+    padding: 30px 0px;
+}
+.statistic-total {
+    font-family: 'Poppins',sans-serif;
+    height: 10%;
+    font-size: 30px;
+    padding: 20px 10px;
+    display: flex;
+}
+.statistic-total span {
+    color: blue;
 }

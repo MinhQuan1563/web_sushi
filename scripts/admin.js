@@ -741,21 +741,20 @@ function getTypeProduct(type) {
 
 // ==> PHÂN TRANG
 // Xử lý phân trang và Render sản phẩm ra Table
-const arr = localStorage.getItem('product') ? JSON.parse(localStorage.getItem('product')) : products;
-var perPage = 12;
-var currentPage = 1;
-var start = 0;
-var end = perPage;
-var total = Math.ceil(arr.length / perPage);
-const btnPrev = document.querySelector('.btn-prev');
-const btnNext = document.querySelector('.btn-next');
+// const arr = localStorage.getItem('product') ? JSON.parse(localStorage.getItem('product')) : products;
+// var perPage = 12;
+// var currentPage = 1;
+// var start = 0;
+// var end = perPage;
+// var total = Math.ceil(arr.length / perPage);
+// const btnPrev = document.querySelector('.btn-prev');
+// const btnNext = document.querySelector('.btn-next');
 
 function showProduct() {
     const arr = localStorage.getItem('product') ? JSON.parse(localStorage.getItem('product')) : products;
     var htmls = '<table>';
     arr.map((item, index) => {
-        if (index >= start && index < end) {
-            htmls += `
+        htmls += `
                 <tr>
                     <td style="width: 5%">${index+1}</td>
                     <td style="width: 10%">${arr[index].masp}</td>
@@ -775,89 +774,88 @@ function showProduct() {
                     </td>
                 </tr>`
             return htmls;
-        }
     })
     htmls += '</table>';
     document.getElementById('table-product').innerHTML = htmls;
 }
 
-function getCurrentPage(currentPage) {
-    start = (currentPage - 1) * perPage;
-    end = currentPage * perPage;
-}
+// function getCurrentPage(currentPage) {
+//     start = (currentPage - 1) * perPage;
+//     end = currentPage * perPage;
+// }
 
-btnNext.addEventListener('click', function() {
-    currentPage++;
-    if (currentPage >= total) {
-        currentPage = total;
-        btnNext.classList.remove('active');
-        btnPrev.classList.add('active');
-    }
-    else {
-        btnNext.classList.add('active');
-        btnPrev.classList.add('active');
-    }
-    document.querySelector('.number-page li.active').classList.remove('active');
-    document.querySelectorAll('.number-page li')[currentPage - 1].classList.add('active');
+// btnNext.addEventListener('click', function() {
+//     currentPage++;
+//     if (currentPage >= total) {
+//         currentPage = total;
+//         btnNext.classList.remove('active');
+//         btnPrev.classList.add('active');
+//     }
+//     else {
+//         btnNext.classList.add('active');
+//         btnPrev.classList.add('active');
+//     }
+//     document.querySelector('.number-page li.active').classList.remove('active');
+//     document.querySelectorAll('.number-page li')[currentPage - 1].classList.add('active');
 
-    getCurrentPage(currentPage);
-    showProduct();
-})
+//     getCurrentPage(currentPage);
+//     showProduct();
+// })
 
-btnPrev.addEventListener('click', function() {
-    currentPage--;
-    if (currentPage <= 1) {
-        currentPage = 1;
-        btnNext.classList.add('active');
-        btnPrev.classList.remove('active');
-    }
-    else {
-        btnNext.classList.add('active');
-        btnPrev.classList.add('active');
-    }
-    document.querySelector('.number-page li.active').classList.remove('active');
-    document.querySelectorAll('.number-page li')[currentPage - 1].classList.add('active');
+// btnPrev.addEventListener('click', function() {
+//     currentPage--;
+//     if (currentPage <= 1) {
+//         currentPage = 1;
+//         btnNext.classList.add('active');
+//         btnPrev.classList.remove('active');
+//     }
+//     else {
+//         btnNext.classList.add('active');
+//         btnPrev.classList.add('active');
+//     }
+//     document.querySelector('.number-page li.active').classList.remove('active');
+//     document.querySelectorAll('.number-page li')[currentPage - 1].classList.add('active');
 
-    getCurrentPage(currentPage);
-    showProduct();
-})
+//     getCurrentPage(currentPage);
+//     showProduct();
+// })
 
-function renderPage() {
-    var htmls = '';
-    htmls += `<li class="active">${1}</li>`;
-    for (let i = 2; i <= total; i++) {
-        htmls += `<li>${i}</li>`
-    }
-    document.getElementById('number-page').innerHTML = htmls;
-}
+// function renderPage() {
+//     var htmls = '';
+//     htmls += `<li class="active">${1}</li>`;
+//     for (let i = 2; i <= total; i++) {
+//         htmls += `<li>${i}</li>`
+//     }
+//     document.getElementById('number-page').innerHTML = htmls;
+// }
 
-function changePage() {
-    var currentPages = document.querySelectorAll('.number-page li');
-    for (let i = 0; i < currentPages.length; i++) {
-        currentPages[i].addEventListener('click', function() {
-            document.querySelector('.number-page li.active').classList.remove('active');
-            currentPages[i].classList.add('active');
+// function changePage() {
+//     var currentPages = document.querySelectorAll('.number-page li');
+//     for (let i = 0; i < currentPages.length; i++) {
+//         currentPages[i].addEventListener('click', function() {
+//             document.querySelector('.number-page li.active').classList.remove('active');
+//             currentPages[i].classList.add('active');
 
-            if(i == 0) {
-                btnNext.classList.add('active');
-                btnPrev.classList.remove('active');
-            }
-            else if(i == currentPages.length - 1) {
-                btnNext.classList.remove('active');
-                btnPrev.classList.add('active');
-            }
-            else {
-                btnNext.classList.add('active');
-                btnPrev.classList.add('active');
-            }
+//             if(i == 0) {
+//                 btnNext.classList.add('active');
+//                 btnPrev.classList.remove('active');
+//             }
+//             else if(i == currentPages.length - 1) {
+//                 btnNext.classList.remove('active');
+//                 btnPrev.classList.add('active');
+//             }
+//             else {
+//                 btnNext.classList.add('active');
+//                 btnPrev.classList.add('active');
+//             }
 
-            var value = i + 1;
-            currentPage = value;
-            getCurrentPage(currentPage);
-            showProduct();
-        })
-    }
-}
+//             var value = i + 1;
+//             currentPage = value;
+//             getCurrentPage(currentPage);
+//             showProduct();
+//         })
+//     }
+// }
 
 
 
@@ -970,7 +968,7 @@ function addProduct() {
                 })
                 
                 localStorage.setItem("product", JSON.stringify(arr));
-                
+
                 setTimeout(function() {
                     notify.style.transform = 'translateX(0)';
                     notify.style.opacity = '1';
@@ -989,10 +987,10 @@ function addProduct() {
                     overlayProduct.style.transform = 'scale(0)';
                 }, 1300)
 
-                changePage();
-                renderPage();
-                showProduct();
                 clear();
+                showProduct();
+                // renderPage();
+                // changePage();
             }
         }
         else {
@@ -1013,7 +1011,7 @@ function addProduct() {
         }
         notify.innerHTML = '';
     }
-
+    
 }
 addProduct();
 
@@ -1042,9 +1040,10 @@ function deleteProduct(i) {
         arr.splice(i, 1);
 
         localStorage.setItem("product", JSON.stringify(arr));
-        changePage();
-        renderPage();
+        
         showProduct();
+        // renderPage();
+        // changePage();
     }
 
     document.querySelector('.notify__delete-cancel').onclick = function() {
@@ -1266,8 +1265,8 @@ function editProduct(i) {
                     overlayProduct2.style.transform = 'scale(0)';
                 }, 1300)
                 
-                changePage();
-                renderPage();
+                // changePage();
+                // renderPage();
                 showProduct();
             }
         }
@@ -1290,8 +1289,8 @@ function editProduct(i) {
 
         localStorage.setItem("product", JSON.stringify(arr));
 
-        changePage();
-        renderPage();
+        // changePage();
+        // renderPage();
         showProduct();
 
     }
@@ -1529,6 +1528,7 @@ function duyet(i, j, duyetDon) {
     localStorage.setItem('account', JSON.stringify(arrUser));
 
     renderOder();
+    renderThongKe();
 }
 
 var overlayOrder = document.querySelector('.overlay.order');
@@ -1584,9 +1584,116 @@ document.querySelector('.monan').onclick = function() {
     }
 }
 
+function locDonHangTheoKhoangNgay() {
+    var from = document.getElementById('fromDate').valueAsDate;
+    var to = document.getElementById('toDate').valueAsDate;
+
+    
+    var listTr_table = document.querySelector('.section__order').querySelector('.table-content').getElementsByTagName('tr');
+
+    for (var tr of listTr_table) {
+        var td = tr.getElementsByTagName('td')[1].innerHTML;
+        var d = new Date(td);
+        if (d >= from && d <= to) {
+            tr.style.display = '';
+        } else {
+            tr.style.display = 'none';
+        }
+    }
+    clearDay();
+}
+
+function clearDay(){
+    document.getElementById('fromDate').valueAsDate='';
+    document.getElementById('toDate').valueAsDate='';
+}
+
+
+
+// ==> XỬ LÝ THỐNG KÊ
+function renderThongKe() {
+    const arr = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
+    var tongDonHang = 0;
+    var tongSP = 0;
+    var tongDoanhThu = 0;
+    for(let i=1; i < arr.length; i++) {
+        for(let j = 0; j < arr[i].donhang.length; j++) {
+            if(arr[i].donhang[j].trangthai === 'Đã xử lý') {
+                tongDonHang++;
+                tongSP += arr[i].donhang[j].sanpham.length;
+                var tong1DH = deleteComma(arr[i].donhang[j].tongtien.split('₫')[0]);
+                tongDoanhThu += tong1DH;
+            }
+        }
+    }
+
+    document.querySelectorAll('.material-symbols-rounded')[0].innerHTML = tongDonHang;
+    document.querySelector('.sanPhamDaBan').innerHTML = tongSP;
+    document.querySelectorAll('.material-symbols-rounded')[1].innerHTML = addComma(tongDoanhThu) + ' ₫';
+}
+renderThongKe()
+
+function parseYMD(date) {
+    var parts = date.split('-');
+    var part = '';
+    for(let i = 0; i < parts.length; i++) {
+        if(i = 2) {
+            part += parts[i];
+            break;
+        }
+        part += parts[i] + '-';
+    }
+
+    console.log(part)
+    return part; 
+}
+
+function dateFilter_statistic(date) {
+    let d1 = document.getElementById("date-from1").value
+    let d2 = document.getElementById("date-to1").value
+    console.log(d1)
+    console.log(d2)
+    return date>= d1 && date<=d2;
+}
+
+function statisticFilter() {
+    const arr = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
+    let dates = []
+    let billArr = []
+    let d1 = document.getElementById("date-from1")
+    let d2 = document.getElementById("date-to1")
+    if(d1.value > d2.value && d2.value != "") {
+        alert("SAI THỨ TỰ NGÀY !") 
+        d1.focus()
+        d2.focus()
+    }
+    else { 
+        for(let i = 1 ; i < arr.length ; i++) {
+            for(let j = 0; j < arr[i].donhang.length; j++) {
+                dates.push(parseYMD(arr[i].donhang[j].ngaymua))
+            }
+        }
+
+        let filtereddate = dates.filter(dateFilter_statistic)
+        for(let i = 1 ; i < arr.length ; i++) {
+            for(let j = 0; j < arr[i].donhang.length; j++) {
+                for(let k = 0 ; k < filtereddate.length ; k++ ) {
+                    if(parseYMD(arr[i].donhang[j].ngaymua) == filtereddate[k]) {
+                        billArr.push(arr[i].donhang[j].ngaymua)
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    console.log(billArr)
+}
+
+
 
 
 // ==> GỌI CÁC HÀM ĐỂ XỬ LÝ
 showProduct();
-renderPage();
-changePage();
+// renderPage();
+// changePage();

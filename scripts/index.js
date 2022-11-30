@@ -836,6 +836,8 @@ function productHandle(arrList) {
             document.querySelector('.modal__inner-img').style.backgroundImage = `url(${collageImg(arrList[index + perPage * (curPage - 1)].image)})`;
             document.querySelector('.modal__inner-heading').innerText = arrList[index + perPage * (curPage - 1)].name;
             document.querySelector('.modal__inner-price').innerText = arrList[index + perPage * (curPage - 1)].price;
+            document.querySelector('.modal-getLoaiSP').value = arrList[index + perPage * (curPage - 1)].type;
+            document.querySelector('.modal-getMaSP').value = arrList[index + perPage * (curPage - 1)].masp;
             overlay.classList.add('open');
         }
 
@@ -1515,12 +1517,13 @@ function checkAccount() {
     if(arr[0].isAdmin != false || arr[0].isUser != false) {
         if(arr[0].isAdmin == true) {
             document.querySelector('.sidebar__menu-item:last-child').classList.remove('hide');
-            document.querySelector('.section__header-title-text.login').innerText = arr[0].Fullname;
+            // document.querySelector('.section__header-title-text.login').innerText = arr[0].Fullname;
         }
-        else if(arr[0].isUser == true) {
-            document.querySelector('.section__header-title-text.login').innerText = arr[0].Fullname;
-        }
+        // else if(arr[0].isUser == true) {
+        //     document.querySelector('.section__header-title-text.login').innerText = arr[0].Fullname;
+        // }
 
+        document.querySelector('.section__header-title-text.login').innerText = arr[0].Fullname;
         document.querySelector('.sidebar__log-out').classList.remove('hide');
     }
 
@@ -1835,8 +1838,9 @@ document.querySelector('.section__notify-footer-tocart').onclick = function() {
     updateCart();
 }
 
+var tmp = 0;
 // Xử lý khi ấn vào thanh toán
-pay.addEventListener('click', function() {
+pay.onclick = function() {
     updateCart();
     var arr = localStorage.getItem("account") ? JSON.parse(localStorage.getItem("account")) : accounts;
     if(returnCurIndex() != -1) {
@@ -1845,9 +1849,9 @@ pay.addEventListener('click', function() {
     
             loginEmail.value = arr[returnCurIndex()].email;
             
-            confirmBtn.addEventListener('click', function() {
+            confirmBtn.onclick = function() {
                 thongTinDonHang(returnCurIndex());
-            })
+            }
         }
         else {
             notify.style.transform = 'translateX(0)';
@@ -1912,7 +1916,7 @@ pay.addEventListener('click', function() {
             notify.style.opacity = '0';
         }
     }
-})
+}
 
 closeCart.onclick = function() {
     overlayCart.classList.remove('open');
@@ -1944,6 +1948,9 @@ function thongTinDonHang(i) {
 
     if(isEmail && isPhone && isAddress) {
         arr[i].email = email;
+
+        ++tmp;
+        alert(tmp)
 
         arr[i].donhang.push(
             {
@@ -1983,6 +1990,10 @@ function thongTinDonHang(i) {
             deleteAllCart();
             updateCart();
         }, 1700)
+
+        setTimeout(function() {
+            window.location.reload();
+        }, 2000)
     }
     else {
         setTimeout(function() {
@@ -2022,11 +2033,13 @@ addCart.onclick = () => {
         var name = document.querySelector('.modal__inner-heading').innerText;
         var price = document.querySelector('.modal__inner-price').innerText;
         var size = document.querySelector('.modal__inner-size select').value;
-        var amount = parseInt(document.querySelector('.modal__inner-amount input[type="text"]').value)
+        var amount = parseInt(document.querySelector('.modal__inner-amount input[type="text"]').value);
+        var type = document.querySelector('.modal-getLoaiSP').value;
+        var masp = document.querySelector('.modal-getMaSP').value;
     
         // Cộng dồn số lượng của sp
         for(let j=0; j < list.length; j++) {
-            if(list[j].image === image && list[j].name === name && list[j].price === price && list[j].size === size) {
+            if(list[j].masp === masp) {
                 list[j].amount += amount;
                 added = true;
             }
@@ -2034,6 +2047,8 @@ addCart.onclick = () => {
 
         if(!added) {
             var cart = {
+                masp: masp,
+                type: type,
                 image: image,
                 name: name,
                 price: price,
@@ -2418,7 +2433,7 @@ function addDonHang(donhang) {
                 <tr> 
                     <th colspan="6">
                         <i class="fa-solid fa-arrow-down"></i>
-                        <h3 style="text-align:center; line-height: 30px;"> Đơn hàng ngày: ${getCurDate()}</h3> 
+                        <h3 style="text-align:center; line-height: 30px;"> Đơn hàng ngày: ${donhang.ngaymua}</h3> 
                     </th>
                 </tr>
                 <tr class="not-show">

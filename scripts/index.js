@@ -724,7 +724,7 @@ function getCurDate() {
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
-    var s = `${day}-${month}-${year}`;
+    var s = `${year}-${month}-${day}`;
 
     return s;
 }
@@ -2060,6 +2060,7 @@ addCart.onclick = () => {
         }
 
         renderCartNotify(list)
+        animateCartNumber()
         updateCart();
     
         localStorage.setItem("account", JSON.stringify(arr));
@@ -2077,6 +2078,7 @@ addCart.onclick = () => {
             cartNotify.style.transform = 'translateX(100%)';
             cartNotify.style.opacity = '0';
         }, 1500)
+
 
     }
     else {
@@ -2228,7 +2230,8 @@ function updateCart() {
                 document.getElementById("checkout__cart-total-money").innerText = `${total} ₫`;
                 renderCartNotify(list)
                 document.querySelector('.section__notify-footer-text').innerText = `Tổng tiền (${totalAmount}) sản phẩm: `
-                document.querySelector('.section__notify-footer-money').innerText = `${total} ₫`
+                document.querySelector('.section__notify-footer-money').innerText = `${total} ₫`;
+                document.querySelector('.cart-number').innerText = totalAmount;
             });
             initCart();
         }
@@ -2286,7 +2289,9 @@ function loadCartItem(items, callback) {
     });
 
     document.querySelector('.section__notify-footer-text').innerText = `Tổng tiền (${totalAmount}) sản phẩm: `
-    document.querySelector('.section__notify-footer-money').innerText = `${total} ₫`
+    document.querySelector('.section__notify-footer-money').innerText = `${total} ₫`;
+    document.querySelector('.cart-number').innerText = totalAmount;
+
     callback(total, totalAmount);   
 }
 
@@ -2321,6 +2326,7 @@ function getNoProductCart() {
         document.getElementById("checkout__cart-total-money").innerText = '0 ₫';
         document.querySelector('.section__notify-cart-list').innerHTML = `<span>Bạn chưa đăng nhập</span>`;
         document.querySelector('.section__login-list').innerHTML = `<li>Bạn chưa đăng nhập</li>`;
+        document.querySelector('.cart-number').innerText = '';
     }
 
     else if(arr[returnCurIndex()].cart.length === 0) {
@@ -2332,10 +2338,24 @@ function getNoProductCart() {
         document.querySelector('.section__notify-footer-text').innerText = 'Tổng tiền (0) sản phẩm: ';
         document.querySelector('.section__notify-footer-money').innerText = '0 ₫';
         document.querySelector('.section__notify-cart-list').innerHTML = `<span>Giỏ hàng trống</span>`;
+        document.querySelector('.cart-number').innerText = '0';
     }
 }
 getNoProductCart()
 
+// Xử lý hiện số lượng sp trên thông báo
+function animateCartNumber() {
+    // Hiệu ứng cho icon giỏ hàng
+    var a = document.querySelector('.cart-number');
+    a.style.transform = 'scale(1.5)';
+    a.style.backgroundColor = 'rgba(255, 0, 0, 0.8)';
+    a.style.color = 'white';
+    setTimeout(function () {
+        a.style.transform = 'scale(1)';
+        a.style.backgroundColor = 'transparent';
+        a.style.color = 'red';
+    }, 1200);
+}
 
 
 // ==> TRANG NGƯỜI DÙNG VÀ ĐƠN HÀNG ĐÃ ĐẶT

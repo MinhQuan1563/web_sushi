@@ -1584,29 +1584,60 @@ document.querySelector('.monan').onclick = function() {
     }
 }
 
+// Lọc đơn hàng theo ngày
 function locDonHangTheoKhoangNgay() {
-    var from = document.getElementById('fromDate').valueAsDate;
-    var to = document.getElementById('toDate').valueAsDate;
-
-    
+    var from = document.getElementById('fromDate').value;
+    var to = document.getElementById('toDate').value;
+    var valueConfirm = document.getElementById('actionConfirm').value;
+    if (from === '' || to === '') {
+        alert('Vui lòng nhập đầy đủ ngày tháng năm')
+        clearDay();
+        return;
+    }
+    from = new Date(from);
+    to = new Date(to);
+    if (from > to) {
+        alert("khoảng thời gian không hợp lệ")
+        clearDay();
+        return;
+    }
     var listTr_table = document.querySelector('.section__order').querySelector('.table-content').getElementsByTagName('tr');
-
     for (var tr of listTr_table) {
         var td = tr.getElementsByTagName('td')[1].innerHTML;
-        var d = new Date(td);
-        if (d >= from && d <= to) {
-            tr.style.display = '';
-        } else {
-            tr.style.display = 'none';
+        var td2 = tr.getElementsByTagName('td')[4].innerHTML;
+        var d = new Date(td)
+        if (valueConfirm === "Tất Cả") {
+            if (d >= from && d <= to) {
+                tr.style.display = '';
+            } else {
+                tr.style.display = 'none';
+            }
+        }
+        if (valueConfirm === "Chưa xử lý") {
+            if (d >= from && d <= to && td2 === "Chưa xử lý") {
+                tr.style.display = '';
+            } else {
+                tr.style.display = 'none';
+            }
+        }
+        if (valueConfirm === "Đã xử lý") {
+            if (d >= from && d <= to && td2 === "Đã xử lý") {
+                tr.style.display = '';
+            } else {
+                tr.style.display = 'none';
+            }
         }
     }
-    clearDay();
 }
 
-function clearDay(){
-    document.getElementById('fromDate').valueAsDate='';
-    document.getElementById('toDate').valueAsDate='';
-}
+// Xóa tìm kiếm trong đơn hàng
+var deleteSearchDay = document.querySelector('.deleteSearchDay');
+deleteSearchDay.addEventListener('click', function() {
+    document.getElementById('fromDate').value = '';
+    document.getElementById('toDate').value = '';
+    document.getElementById('actionConfirm').value = 'Tất cả';
+    renderOder();
+})
 
 
 

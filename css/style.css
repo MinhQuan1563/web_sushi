@@ -2228,3 +2228,19 @@ table {
     top: 50%;
     left: 25px;
 }
+
+/* Cart number */
+.cart-number {
+    position: absolute;
+    left: 7px;
+    top: 7px;
+    font-size: 16px;
+    color: var(--outstand-color);
+    font-weight: bold;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    transition-duration: 0.4s
+}

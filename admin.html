@@ -298,9 +298,13 @@
             <div class="section__order">
                 <div class="table-footer">
                     <div class="timTheoNgay">
-                        Từ ngày: <input type="date" id="fromDate">
-                        Đến ngày: <input type="date" id="toDate">
-    
+                        <button class="deleteSearchDay"><i class="fa fa-remove"></i></button>
+                        Từ ngày: <input type="date" id="fromDate"> Đến ngày: <input type="date" id="toDate">
+                        <select id="actionConfirm">
+                            <option selected="selected">Tất Cả</option>
+                            <option>Đã xử lý</option>
+                            <option>Chưa xử lý</option>
+                        </select>
                         <button onclick="locDonHangTheoKhoangNgay()"><i class="fa fa-search"></i> Tìm</button>
                     </div>
                 </div>
@@ -418,6 +422,15 @@
     
             <!-- Khách hàng -->
             <div class="section__customer">
+                <div class="table-footer">
+                    <select class="kieuTimKhachHang">
+                        <option value="ten">Tìm theo họ tên</option>
+                        <option value="email">Tìm theo email</option>
+                        <option value="taikhoan">Tìm theo tài khoản</option>
+                    </select>
+                    <input type="text" placeholder="Tìm kiếm..." onkeyup="timKiemNguoiDung(this)">
+                </div>
+                
                 <table class="table-header">
                     <tr>
                         <th style="width: 5%">Stt </th>
@@ -432,15 +445,6 @@
     
                 <div class="table-content" id="User">
 
-                </div>
-    
-                <div class="table-footer">
-                    <select class="kieuTimKhachHang">
-                        <option value="ten">Tìm theo họ tên</option>
-                        <option value="email">Tìm theo email</option>
-                        <option value="taikhoan">Tìm theo tài khoản</option>
-                    </select>
-                    <input type="text" placeholder="Tìm kiếm..." onkeyup="timKiemNguoiDung(this)">
                 </div>
 
                 <div class="notify__delete">

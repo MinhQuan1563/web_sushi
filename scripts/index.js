@@ -724,7 +724,7 @@ function getCurDate() {
     var day = date.getDate();
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
-    var s = `${year}-${month}-${day}`;
+    var s = `${day}-${month}-${year}`;
 
     return s;
 }
@@ -1150,7 +1150,7 @@ function addLogin() {
         Fullname: fullname,
         Password: password,
         Username: username,
-        ngaydangky: getCurDate(),
+        ngaydangky: getCurDate().toString(),
         email: '',
         cart: [],
         donhang: []
@@ -1838,7 +1838,6 @@ document.querySelector('.section__notify-footer-tocart').onclick = function() {
     updateCart();
 }
 
-var tmp = 0;
 // Xử lý khi ấn vào thanh toán
 pay.onclick = function() {
     updateCart();
@@ -1948,9 +1947,6 @@ function thongTinDonHang(i) {
 
     if(isEmail && isPhone && isAddress) {
         arr[i].email = email;
-
-        ++tmp;
-        alert(tmp)
 
         arr[i].donhang.push(
             {

@@ -74,7 +74,7 @@
                             <div class="admin__statis-sum">
                                 <div class="admin__statis-sum-box">
                                     <div class="admin__statis-sum-box-icon sum-order">
-                                        <span class="material-symbols-rounded"></span>
+                                        <span class="material-symbols-rounded" ></span>
                                     </div>
                                     <div class="admin__statis-sum-box-info">
                                         <h3>Đơn hàng</h3>
@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="admin__statis-sum-box">
                                     <div class="admin__statis-sum-box-icon total">
-                                        <span class="material-symbols-rounded"></span>
+                                        <span class="material-symbols-rounded" id="totalprice">0 ₫</span>
                                     </div>
                                     <div class="admin__statis-sum-box-info">
                                         <h3>Tổng doanh Thu</h3>
@@ -100,58 +100,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- <div class="admin__statis-filter">
-                                <div class="phanloai">
-                                    <h3>Chọn loại sản phẩm:</h3>
-                                    <select name="" id="">
-                                        <option value="all" selected>Tất cả</option>
-                                        <option value="bento">Bento</option>
-                                        <option value="sushi">Sushi</option>
-                                        <option value="sashi">Sashimi</option>
-                                        <option value="combo">Combo</option>
-                                        <option value="ankem">Món kèm</option>
-                                        <option value="douong">Tráng miệng</option>
-                                    </select>
-                                </div>
-
-                                <div class="khoangthoigian">
-                                    Khoảng thời gian:
-                                    <input type="date" id="fromDate">
-                                    Đến
-                                    <input type="date" id="toDate">
-                                </div>
-
-                                <button onclick="thongKe()"><i class="fa fa-search"></i> Tìm</button>
-                            </div>
-
-                            <div class="admin__statis-chart-wrapper">
-                                <div class="admin__statis-chart-header">
-                                    <h3>Bảng Thống Kê</h3>
-                                </div>
-
-                                <div class="admin__statis-chart-note">
-                                    <div class="admin__statis-chart-note-item">
-                                        <div></div>
-                                        :
-                                        <p>Đơn hàng(%)</p>
-                                    </div>
-                                    <div class="admin__statis-chart-note-item">
-                                        <div></div>
-                                        :
-                                        <p>Sản phẩm bán được(%)</p>
-                                    </div>
-                                    <div class="admin__statis-chart-note-item">
-                                        <div></div>
-                                        :
-                                        <p>Doanh thu(%)</p>
-                                    </div>       
-                                </div>
-
-                                <div class="admin__statis-chart">
-
-                                </div>
-                            </div> -->
 
                             <div class="statistic mySlides">
                                 <div class="statistic-header">
@@ -175,7 +123,7 @@
                                             <option value="ankem">Món ăn kèm</option>
                                             <option value="douong">Nước uống và tráng miệng</option>
                                         </select>
-                                        <button type="button" id="statistic-filter-btn">Lọc</button>
+                                        <button type="button" id="statistic-filter-btn" onchange="statisticFilter()">Lọc</button>
                                     </div>
                                     <div class="bill-list-table">
                                         <table>
@@ -188,9 +136,10 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="statistic-content" id="statistic-perform">
+                            </div>
+
+                            <div class="statistic-content" id="statistic-perform">
                                     
-                                </div>
                             </div>
                         </div>
                     </div>

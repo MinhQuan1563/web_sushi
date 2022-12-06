@@ -955,6 +955,7 @@ input:checked+.slider:before {
 
 .statistic,.product-list {
     display: flex;
+    flex-direction: column;
     margin: 20px;
     padding: 20px;
     border-radius: 50px;
@@ -1027,13 +1028,16 @@ input:checked+.slider:before {
 }
 .statistic-content {
     height: 65%;
+    color: black;
     overflow-y: auto;
 }
 
-.statistic-content-prd , .productlist-content-prd{
+.statistic-content-prd , .productlist-content-prd {
     font-family: 'Poppins',sans-serif;
     display: flex;
+    justify-content: space-around;
     flex-direction: row;
+    align-items: center;
     height: 100px;
     text-align: center;
     font-size: 25px;

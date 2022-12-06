@@ -638,6 +638,7 @@ if(Arr === accounts) {
 
 
 
+if(Arr[0].isAdmin) {
 // ==> PHẦN CHUNG
 // Lựa chọn các item trên nav-item
 const navItems = document.querySelectorAll('.nav-item');
@@ -668,6 +669,7 @@ navItems.forEach(function(navItem, index) {
     }
 })
 
+// Cắt ảnh
 function splitImg(img) {
     var img2 = img.split('fakepath\\');
     if(img2.length === 1) {
@@ -678,11 +680,21 @@ function splitImg(img) {
     }
 }
 
+// Ghép ảnh
 function collageImg(img) {
     return './images/' + img;
 }
 
-// Xử lý gía sản phẩm
+// Chuyển định dạng cho ngày tháng năm (yyyy-mm-dd)
+function parseYMD(string) {
+    let arr = string.split("-");
+    if (arr[0] < 10) {
+        arr[0] = `0${arr[0]}`;
+    }
+    return arr[2] + "-" + arr[1] + "-" + arr[0]
+}
+
+// Thêm dấu phẩy
 function addComma(number) {
     number = '' + number;
     if (number.length > 3) {
@@ -699,6 +711,7 @@ function addComma(number) {
     else return number;
 }
 
+// Xóa dấu phẩy
 function deleteComma(s) {
     var arr = s.split(',');
     var money = '';
@@ -739,17 +752,8 @@ function getTypeProduct(type) {
 
 
 
-// ==> PHÂN TRANG
-// Xử lý phân trang và Render sản phẩm ra Table
-// const arr = localStorage.getItem('product') ? JSON.parse(localStorage.getItem('product')) : products;
-// var perPage = 12;
-// var currentPage = 1;
-// var start = 0;
-// var end = perPage;
-// var total = Math.ceil(arr.length / perPage);
-// const btnPrev = document.querySelector('.btn-prev');
-// const btnNext = document.querySelector('.btn-next');
-
+// ==> BẢNG SẢN PHẨM
+// ** Hiển thị sản phẩm
 function showProduct() {
     const arr = localStorage.getItem('product') ? JSON.parse(localStorage.getItem('product')) : products;
     var htmls = '<table>';
@@ -779,87 +783,6 @@ function showProduct() {
     document.getElementById('table-product').innerHTML = htmls;
 }
 
-// function getCurrentPage(currentPage) {
-//     start = (currentPage - 1) * perPage;
-//     end = currentPage * perPage;
-// }
-
-// btnNext.addEventListener('click', function() {
-//     currentPage++;
-//     if (currentPage >= total) {
-//         currentPage = total;
-//         btnNext.classList.remove('active');
-//         btnPrev.classList.add('active');
-//     }
-//     else {
-//         btnNext.classList.add('active');
-//         btnPrev.classList.add('active');
-//     }
-//     document.querySelector('.number-page li.active').classList.remove('active');
-//     document.querySelectorAll('.number-page li')[currentPage - 1].classList.add('active');
-
-//     getCurrentPage(currentPage);
-//     showProduct();
-// })
-
-// btnPrev.addEventListener('click', function() {
-//     currentPage--;
-//     if (currentPage <= 1) {
-//         currentPage = 1;
-//         btnNext.classList.add('active');
-//         btnPrev.classList.remove('active');
-//     }
-//     else {
-//         btnNext.classList.add('active');
-//         btnPrev.classList.add('active');
-//     }
-//     document.querySelector('.number-page li.active').classList.remove('active');
-//     document.querySelectorAll('.number-page li')[currentPage - 1].classList.add('active');
-
-//     getCurrentPage(currentPage);
-//     showProduct();
-// })
-
-// function renderPage() {
-//     var htmls = '';
-//     htmls += `<li class="active">${1}</li>`;
-//     for (let i = 2; i <= total; i++) {
-//         htmls += `<li>${i}</li>`
-//     }
-//     document.getElementById('number-page').innerHTML = htmls;
-// }
-
-// function changePage() {
-//     var currentPages = document.querySelectorAll('.number-page li');
-//     for (let i = 0; i < currentPages.length; i++) {
-//         currentPages[i].addEventListener('click', function() {
-//             document.querySelector('.number-page li.active').classList.remove('active');
-//             currentPages[i].classList.add('active');
-
-//             if(i == 0) {
-//                 btnNext.classList.add('active');
-//                 btnPrev.classList.remove('active');
-//             }
-//             else if(i == currentPages.length - 1) {
-//                 btnNext.classList.remove('active');
-//                 btnPrev.classList.add('active');
-//             }
-//             else {
-//                 btnNext.classList.add('active');
-//                 btnPrev.classList.add('active');
-//             }
-
-//             var value = i + 1;
-//             currentPage = value;
-//             getCurrentPage(currentPage);
-//             showProduct();
-//         })
-//     }
-// }
-
-
-
-// ==> BẢNG SẢN PHẨM
 // ** Xử lý thêm sản phẩm
 const addProductBtn = document.getElementById('add-product');
 const overlayProduct = document.querySelector('.overlay.product.add');
@@ -1594,8 +1517,10 @@ function locDonHangTheoKhoangNgay() {
         clearDay();
         return;
     }
+    alert(typeof to)
     from = new Date(from);
     to = new Date(to);
+    alert(typeof to)
     if (from > to) {
         alert("khoảng thời gian không hợp lệ")
         clearDay();
@@ -1603,7 +1528,7 @@ function locDonHangTheoKhoangNgay() {
     }
     var listTr_table = document.querySelector('.section__order').querySelector('.table-content').getElementsByTagName('tr');
     for (var tr of listTr_table) {
-        var td = tr.getElementsByTagName('td')[1].innerHTML;
+        var td = parseYMD(tr.getElementsByTagName('td')[1].innerHTML);
         var td2 = tr.getElementsByTagName('td')[4].innerHTML;
         var d = new Date(td)
         if (valueConfirm === "Tất Cả") {
@@ -1646,50 +1571,80 @@ function renderThongKe() {
     const arr = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
     var tongDonHang = 0;
     var tongSP = 0;
-    var tongDoanhThu = 0;
     for(let i=1; i < arr.length; i++) {
         for(let j = 0; j < arr[i].donhang.length; j++) {
             if(arr[i].donhang[j].trangthai === 'Đã xử lý') {
                 tongDonHang++;
                 tongSP += arr[i].donhang[j].sanpham.length;
-                var tong1DH = deleteComma(arr[i].donhang[j].tongtien.split('₫')[0]);
-                tongDoanhThu += tong1DH;
             }
         }
     }
 
     document.querySelectorAll('.material-symbols-rounded')[0].innerHTML = tongDonHang;
     document.querySelector('.sanPhamDaBan').innerHTML = tongSP;
-    document.querySelectorAll('.material-symbols-rounded')[1].innerHTML = addComma(tongDoanhThu) + ' ₫';
 }
 renderThongKe()
 
-function parseYMD(date) {
-    var parts = date.split('-');
-    var part = '';
-    for(let i = 0; i < parts.length; i++) {
-        if(i = 2) {
-            part += parts[i];
-            break;
+function getSubTotal() {
+    let listCart = JSON.parse(localStorage.getItem('carts'));
+    let listProductByCategory = ["Bento", "Sushi", "Sashimi", "Combo Sashimi", "Món ăn kèm", "Nước uống và tráng miệng"];
+    let listSoldOut = Array(7).fill(0);
+    for (let j = 1; j < listCart.length; j++) {
+        for (let i = 0; i < listCart[j].length; i++) {
+            if (listCart[j][i].status == "Đã xử lý") {
+                switch (listCart[j][i].category) {
+                    case "Bento": {
+                        listSoldOut[0] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
+                        break;
+                    }
+                    case "Sushi": {
+                        listSoldOut[1] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
+                        break;
+                    }
+                    case "Sashimi": {
+                        listSoldOut[2] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
+                        break;
+                    }
+                    case "Combo Sashimi": {
+                        listSoldOut[6] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
+                        break;
+                    }
+                    case "Món ăn kèm": {
+                        listSoldOut[3] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
+                        break;
+                    }
+                    case "Nước uống và tráng miệng": {
+                        listSoldOut[4] += parseFloat(listCart[j][i].price.split('£')[1]) * listCart[j][i].soluong;
+                        break;
+                    }
+                }
+            }
         }
-        part += parts[i] + '-';
     }
+    for (let i = 0; i < 6; i++) {
+        listSoldOut[i] = listSoldOut[i].toFixed(2);
+    }
+    return listSoldOut;
+}
 
-    console.log(part)
-    return part; 
+function parseYMD(string) {
+    let arr = string.split("-");
+    if (arr[0] < 10) {
+        arr[0] = `0${arr[0]}`;
+    }
+    return arr[2] + "-" + arr[1] + "-" + arr[0]
 }
 
 function dateFilter_statistic(date) {
     let d1 = document.getElementById("date-from1").value
     let d2 = document.getElementById("date-to1").value
-    console.log(d1)
-    console.log(d2)
-    return date>= d1 && date<=d2;
+    const dateFormat = parseYMD(date);
+    return dateFormat>= d1 && dateFormat<=d2;
 }
 
 function statisticFilter() {
     const arr = localStorage.getItem('account') ? JSON.parse(localStorage.getItem('account')) : accounts;
-    let dates = []
+    const newBillArr = [];
     let billArr = []
     let d1 = document.getElementById("date-from1")
     let d2 = document.getElementById("date-to1")
@@ -1699,32 +1654,131 @@ function statisticFilter() {
         d2.focus()
     }
     else { 
-        for(let i = 1 ; i < arr.length ; i++) {
-            for(let j = 0; j < arr[i].donhang.length; j++) {
-                dates.push(parseYMD(arr[i].donhang[j].ngaymua))
-            }
-        }
+        billArr = arr.map((product) => {
+            const donHang = product?.donhang?.filter((hang) => {
+                return dateFilter_statistic(hang.ngaymua);
+            })
 
-        let filtereddate = dates.filter(dateFilter_statistic)
-        for(let i = 1 ; i < arr.length ; i++) {
-            for(let j = 0; j < arr[i].donhang.length; j++) {
-                for(let k = 0 ; k < filtereddate.length ; k++ ) {
-                    if(parseYMD(arr[i].donhang[j].ngaymua) == filtereddate[k]) {
-                        billArr.push(arr[i].donhang[j].ngaymua)
-                        break;
-                    }
-                }
-            }
+            return donHang;
+        })
+
+        billArr = billArr.filter((bill) => bill)
+
+
+        billArr.forEach((bill) => newBillArr.push(...bill));
+    }
+
+    
+    if (newBillArr.length <= 0) {
+        billArr = arr.map((product) => {
+            return product?.donhang;
+        })
+
+        billArr = billArr.filter((bill) => bill)
+
+        billArr.forEach((bill) => newBillArr.push(...bill));
+
+    }
+
+    var newBillArr2 = [];
+
+    for(let i=0; i < newBillArr.length; i++) {
+        if(newBillArr[i].trangthai === "Đã xử lý") {
+            newBillArr2.push(newBillArr[i])
         }
     }
 
-    console.log(billArr)
+    statisticFilter_Brand(newBillArr2);
+    
 }
 
+statisticFilter();
 
+// Tính thành tiền của từng sản phẩm
+function tinhThanhTien(price, size, amount) {
+    return parseInt(amount * (deleteComma(price) + parseInt(size === 'S' ? 0 : (size === 'M' ? 20000 : 50000))))
+}
 
+function renderStatistic(billarr) {
+    let totalprice = 0;
+    const billHTML = billarr.map((bill) => {
+        var sum = tinhThanhTien(bill.price, bill.size, bill.amount)
+        totalprice += sum;
+        return `
+        <div class="statistic-content-prd">
+            <div class="statistic-content-prd-id">
+                <span>${bill.masp}</span>
+            </div>
+            <div class="statistic-content-prd-name">
+                <div>
+                    <img src="${bill.image}" alt="">
+                </div>
+                <span>${bill.name}</span>
+            </div>
+            <div class="statistic-content-prd-amount">
+                <span>${bill.amount}</span>
+            </div>
+            <div class="statistic-content-price">
+                ${addComma(sum)}
+            </div>
+        </div> 
+    `
+    }).join("");
 
-// ==> GỌI CÁC HÀM ĐỂ XỬ LÝ
+    document.getElementById('statistic-perform').innerHTML = billHTML;
+    document.getElementById('totalprice').innerHTML = `${addComma(totalprice)} ₫`;
+}
+
+function statisticFilter_Brand(billarr) {
+    let brand = document.getElementById('statistic-brand-filter').value
+    const sanphamList = [];
+
+    billarr.forEach((bill) => sanphamList.push(...bill.sanpham));
+
+    switch (brand) {
+        case "bento":
+            const bentoFilter = sanphamList.filter((sp) => sp.type === 'bento');
+            renderStatistic(bentoFilter);
+            break;
+        case "sushi":
+            const sushiFilter = sanphamList.filter((sp) => sp.type === 'sushi');
+            renderStatistic(sushiFilter);
+            break;
+        case "sashi":
+            const sashiFilter = sanphamList.filter((sp) => sp.type === 'sashi');
+            renderStatistic(sashiFilter);
+            break;
+        case "combo":
+            const comboFilter = sanphamList.filter((sp) => sp.type === 'combo');
+            renderStatistic(comboFilter);
+            break;
+        case "bento":
+            const billFilter = sanphamList.filter((sp) => sp.type === 'bento');
+            renderStatistic(billFilter);
+            break;
+        case "ankem":
+            const ankemFilter = sanphamList.filter((sp) => sp.type === 'ankem');
+            renderStatistic(ankemFilter);
+            break;
+        case "douong":
+            const douongFilter = sanphamList.filter((sp) => sp.type === 'douong');
+            renderStatistic(douongFilter);
+            break;
+        default:
+            renderStatistic(sanphamList);
+            break;
+    }
+}
+
 showProduct();
-// renderPage();
-// changePage();
+
+}
+else {
+    document.getElementById('main').innerHTML = `
+    <div style="font-size: 60px;
+    color: red;
+    font-weight: bold;
+    line-height: 80px;
+    margin-top: 140px;
+    text-align: center;">Không phải thầy Sang thì đừng vào...</div>`
+}

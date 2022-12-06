@@ -702,13 +702,14 @@ function addComma(number) {
         var output = (mod > 0 ? (number.substring(0,mod)) : '');
         for (i=0 ; i < Math.floor(number.length / 3); i++) {
             if ((mod == 0) && (i == 0))
-                output += number.substring(mod+ 3 * i, mod + 3 * i + 3);
+                output += number.substring(mod + 3 * i, mod + 3 * i + 3);
             else
                 output+= ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);
         }
         return (output);
     }
-    else return number;
+    else 
+        return number;
 }
 
 // Xóa dấu phẩy
@@ -815,7 +816,7 @@ function addProduct() {
         const name = nameProduct.value;
         const price = priceProduct.value;
         const type = valueType.value;
-        const masp = document.getElementById('maspThem').value
+        const masp = document.getElementById('maspThem').value;
 
         if(imgProduct.value != "" && name != "" && price != "" && masp != '') {
             // Kiểm tra có trùng mã hoặc tên
@@ -912,8 +913,6 @@ function addProduct() {
 
                 clear();
                 showProduct();
-                // renderPage();
-                // changePage();
             }
         }
         else {
@@ -965,8 +964,6 @@ function deleteProduct(i) {
         localStorage.setItem("product", JSON.stringify(arr));
         
         showProduct();
-        // renderPage();
-        // changePage();
     }
 
     document.querySelector('.notify__delete-cancel').onclick = function() {
@@ -1188,8 +1185,6 @@ function editProduct(i) {
                     overlayProduct2.style.transform = 'scale(0)';
                 }, 1300)
                 
-                // changePage();
-                // renderPage();
                 showProduct();
             }
         }
@@ -1212,10 +1207,7 @@ function editProduct(i) {
 
         localStorage.setItem("product", JSON.stringify(arr));
 
-        // changePage();
-        // renderPage();
         showProduct();
-
     }
 
 }
@@ -1238,10 +1230,12 @@ function timKiemSanPham(inp) {
 
         if (tmp.indexOf(text.toLowerCase()) < 0) {
             sp.style.display = 'none';
-        } else {
+        }
+        else {
             sp.style.display = '';
         }
     }
+
 }
 
 
@@ -1267,6 +1261,7 @@ function renderUser() {
         </tr>`
     }
     htmls += '</table>';
+
     document.querySelector('#User').innerHTML = htmls;
     localStorage.setItem('account', JSON.stringify(arrUser));
 }
@@ -1328,8 +1323,8 @@ function timKiemNguoiDung(inp) {
 
     // Lọc
     var vitriKieuTim = {
-        'ten':2, 
-        'email':3, 
+        'ten':2,
+        'email':3,
         'taikhoan':4
     };
 
@@ -1452,6 +1447,7 @@ function duyet(i, j, duyetDon) {
 
     renderOder();
     renderThongKe();
+    statisticFilter();
 }
 
 var overlayOrder = document.querySelector('.overlay.order');
@@ -1517,10 +1513,8 @@ function locDonHangTheoKhoangNgay() {
         clearDay();
         return;
     }
-    alert(typeof to)
     from = new Date(from);
     to = new Date(to);
-    alert(typeof to)
     if (from > to) {
         alert("khoảng thời gian không hợp lệ")
         clearDay();
@@ -1691,7 +1685,6 @@ function statisticFilter() {
     statisticFilter_Brand(newBillArr2);
     
 }
-
 statisticFilter();
 
 // Tính thành tiền của từng sản phẩm
@@ -1705,27 +1698,31 @@ function renderStatistic(billarr) {
         var sum = tinhThanhTien(bill.price, bill.size, bill.amount)
         totalprice += sum;
         return `
-        <div class="statistic-content-prd">
-            <div class="statistic-content-prd-id">
-                <span>${bill.masp}</span>
-            </div>
-            <div class="statistic-content-prd-name">
-                <div>
+        <tr class="statistic-content-prd">
+            <td style="width: 15%;">
+                ${bill.masp}
+            </td>
+            <td style="width: 10%;">
+                <div class="statistic-content-prd-name">
                     <img src="${bill.image}" alt="">
                 </div>
-                <span>${bill.name}</span>
-            </div>
-            <div class="statistic-content-prd-amount">
-                <span>${bill.amount}</span>
-            </div>
-            <div class="statistic-content-price">
+            </td>
+            <td style="width: 45%;">
+                ${bill.name}
+            </td>
+            <td style="width: 10%;">
+                ${bill.amount}
+            </td>
+            <td style="width: 20%;">
                 ${addComma(sum)}
-            </div>
-        </div> 
+            </td>
+        </tr> 
     `
     }).join("");
 
-    document.getElementById('statistic-perform').innerHTML = billHTML;
+    var htmls = '<table style="width: 100%;">'+ billHTML +'</table>'
+
+    document.getElementById('statistic-perform').innerHTML = htmls;
     document.getElementById('totalprice').innerHTML = `${addComma(totalprice)} ₫`;
 }
 

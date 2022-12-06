@@ -1593,10 +1593,10 @@ function deleteSearchHandle() {
 }
 
 var deleteSearch = document.querySelector('.section__delete');
-deleteSearch.addEventListener('click', function() {
+deleteSearch.onclick = function() {
     deleteSearchHandle();
     deleteSearch.style.display = 'none';
-})
+}
 
 sectionSearch.oninput = function() {
     if(sectionSearch.value === '') {
@@ -1640,6 +1640,7 @@ function searchProduct() {
         document.querySelector('.section__content-list').innerHTML = `<h1 class="search__notfound">
         <img src="./images/no-products-found.png" alt="">
         <p>Không tìm thấy sản phẩm nào</p></h1>`
+        document.getElementById('pagination').style.display = 'none';
     }
 }
 
@@ -1666,7 +1667,7 @@ sectionSearch.addEventListener('keydown', function(e) {
 // Xử lý bộ lọc tìm kiếm
 const filterBtn = document.getElementById('filter-btn');
 var isFilter = false;
-filterBtn.addEventListener('click', function() {
+filterBtn.onclick = function() {
     if(!isFilter) {
         isFilter = true;
         document.querySelector('.filter').style.display = "flex";
@@ -1679,7 +1680,7 @@ filterBtn.addEventListener('click', function() {
         renderProduct(getProducts('bento'));
         renderProductDefault(getProducts('bento'));
     }
-})
+}
 
 if(!isFilter) {
     document.querySelector('.filter').style.display = "none";
@@ -2370,11 +2371,11 @@ var tongSanPhamTatCaDonHang = 0;
 
 // Bấm vào để vô trang người dùng
 if(document.querySelector('.section__login-order') != null) {
-    document.querySelector('.section__login-order').addEventListener('click', function() {
+    document.querySelector('.section__login-order').onclick = function() {
         hideSidebar();
     
         document.querySelector('.donHangDaDat').style.display = 'block';
-    })
+    }
 }
 
 function showOrder() {

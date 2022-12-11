@@ -153,6 +153,7 @@ var products = [
         type: 'sushi',
         masp: 'sushi8'
     },
+    // n h ó m 1 1 t4
     {
         image: 'img-0-10.png',
         name: 'Cơm Cuộn California',
@@ -293,6 +294,7 @@ var products = [
         type: 'sashi',
         masp: 'sashi13'
     },
+    // nh ó m 1 1 t4
     {
         image: 'img-2-15.png',
         name: 'Sashimi Sò Đỏ Hokkigai',
@@ -754,7 +756,7 @@ function getTypeProduct(type) {
 
 
 // ==> BẢNG SẢN PHẨM
-// ** Hiển thị sản phẩm
+// ** Hiển thị n h ó m 11 t4 sản phẩm
 function showProduct() {
     const arr = localStorage.getItem('product') ? JSON.parse(localStorage.getItem('product')) : products;
     var htmls = '<table>';
@@ -871,7 +873,7 @@ function addProduct() {
                                             </div>`;
                         
                     }, 200)
-            
+                    // n h óm 1 1 t4
                     setTimeout(function() {
                         notify.style.transform = 'translateX(100%)';
                         notify.style.opacity = '0';
@@ -1003,7 +1005,7 @@ function autoMaSanPham(sp) {
 }
 
 // ** Xử lý sửa sản phẩm
-// hàm tự tạo mã cho sản phẩm mới sửa
+// hàm tự tạo mã n hó m 1 1 t4 cho sản phẩm mới sửa
 function autoMaSanPham2(sp) {
     const arr = localStorage.getItem('product') ? JSON.parse(localStorage.getItem('product')) : products;
 
@@ -1213,7 +1215,7 @@ function editProduct(i) {
 }
 
 // ** Tìm kiếm sản phẩm
-// Tìm kiếm
+// Tìm n h ó m 1 1 t4 kiếm
 function timKiemSanPham(inp) {
     var kieuTim = document.getElementsByName('kieuTimSanPham')[0].value;
     var text = inp.value;

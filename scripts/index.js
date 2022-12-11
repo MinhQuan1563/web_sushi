@@ -677,7 +677,7 @@ setInterval(function() {
     }
 }, 4000);
 
-// Trả về vị trí trong của account của KH đang đăng nhập
+// Trả về vị trí trong của account của KH đang đăng nhập nh ó m 1 1 t4
 function returnCurIndex() {
     var arr = localStorage.getItem("account") ? JSON.parse(localStorage.getItem("account")) : accounts;
 
@@ -745,7 +745,7 @@ function scrollTopHandle() {
     };
     //gán sự kiện click cho button
     scrollToTop.addEventListener("click", function(){
-        //Nếu button được click thì nhảy về đầu trang
+        //Nếu button được n hó m 1 1 t4 click thì nhảy về đầu trang
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     });
@@ -792,7 +792,7 @@ function sidebarControl() {
                     break;
                 case 1:
                     document.querySelector('.section__content.food').style.display = "block";
-                    // Reset lại thanh chọn loại sp thành Bento (4 cái dưới)
+                    // Reset lại thanh chọn loại sp n h óm 1 1 t4 thành Bento (4 cái dưới)
                     renderProduct(getProducts('bento'));
                     renderProductDefault(getProducts('bento'));
                     document.querySelector('.section__header-menu li.active').classList.remove('active');
@@ -920,6 +920,7 @@ function renderProduct(items) {
 }
 
 // ** Xử lý phân trang
+
 var perPage = 8; // Số sản phẩm tối đa trong 1 trang
 var curPage = 1; // Trang hiện tại 
 var start1 = 0; // index sản phẩm đầu
@@ -2172,6 +2173,7 @@ function initCart() {
         if(returnCurIndex() != -1) {
             notify.style.transform = 'translateX(0)';
             notify.style.opacity = '1';
+            // n h ó m 1 1 t4
             notify.innerHTML = `<div class='notify__confirm'>
                                     <div class="notify__confirm-text">
                                         Bạn có chắc chắn xóa hết sản phẩm trong giỏ !!
@@ -2535,3 +2537,4 @@ sidebarControl();
 sectionControl(sectionItems);
 scrollTopHandle();
 checkAccount();
+
